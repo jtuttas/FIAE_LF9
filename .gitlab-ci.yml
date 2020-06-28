@@ -1,0 +1,49 @@
+variables:
+  DOCKER_HOST: tcp://192.168.178.29:2375
+  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+cache:
+    paths:
+        - .m2/repository/
+        - target/
+
+stages:
+  - deploy
+  - Build image
+  - Push to local Registry
+
+deploy:
+    image: maven:latest
+    stage: deploy
+    script:
+        - mvn package
+    tags: 
+        - myrunner 
+    only:
+        - master
+    artifacts:
+        paths:
+            - target/httpServer-1.0-SNAPSHOT.jar
+
+
+docker build:
+  image: docker:stable
+  stage: Build image
+  script:
+    - docker info
+    - docker build -t tuttas/httpserver .
+  tags:
+    - myrunner
+
+docker pushlocal:
+  image: docker:stable
+  stage: Push to local Registry
+  only:
+    - master
+  script:
+    - echo "$LOCAL_REGISTRY" | docker login -u root --password-stdin service.joerg-tuttas.de:5555
+    - docker build -t service.joerg-tuttas.de:5555/root/httpserver .
+    - docker push service.joerg-tuttas.de:5555/root/httpserver
+  tags:
+    - myrunner
