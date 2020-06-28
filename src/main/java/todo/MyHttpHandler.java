@@ -9,18 +9,28 @@ import java.util.Scanner;
 import com.sun.net.httpserver.*;
 import todo.entity.Entity;
 
-
+/**
+ * Router für incoming requests
+ */
 public class MyHttpHandler implements HttpHandler {
 
     DBManager db;
     Entity e;
 
+    /**
+     * Constructor for the Router
+     * @param db Reference to the database
+     * @param e Enity to manage
+     */
     public MyHttpHandler(DBManager db, Entity e) {
         this.db = db;
         this.e = e;
     }
 
     @Override
+    /**
+     * handler for the incomig requests
+     */
     public void handle(com.sun.net.httpserver.HttpExchange t) throws IOException {
         System.out.println("HTTP Method:" + t.getRequestMethod());
         t.getResponseHeaders().add("Content-Type", "Application/JSON");

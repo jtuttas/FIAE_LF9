@@ -6,15 +6,15 @@ import todo.entity.Project;
 import todo.entity.Task;
 
 /**
- * Hello world!
+ * Main Class to run the Application
  */
 public final class App {
 
 
     /**
-     * Says hello to the world.
+     * Main Methode to RUN the application
      * 
-     * @param args The arguments of the program.
+     * @param args no arguments needed
      */
     public static void main(String[] args) {
         try {
