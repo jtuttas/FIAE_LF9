@@ -54,7 +54,7 @@
     <pluginManagement>
       <plugins>
 
-       
+
       </plugins>
     </pluginManagement>
     <plugins>
@@ -182,7 +182,17 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${maven-javadoc-plugin.version}</version>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <aggregate>true</aggregate>          <!-- this enables aggretation -->
+        </configuration>
+      </plugin>
+
     </plugins>
+
   </reporting>
   <profiles>
     <!-- Publish coverage report to Coveralls, only when running in Travis. -->
@@ -204,4 +214,5 @@
       </build>
     </profile>
   </profiles>
+
 </project>

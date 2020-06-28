@@ -31,6 +31,7 @@ public class Server {
 
     /**
      * Starts the server
+     * @throws IOException If Port is blocked etc.
      */
     public void start() throws IOException {
         server.start();

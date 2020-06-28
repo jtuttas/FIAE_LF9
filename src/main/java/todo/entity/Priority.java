@@ -21,7 +21,7 @@ public class Priority extends Entity {
     }
     /**
      * Sets the Priority (rating) of the priority
-     * @param priorityValue
+     * @param priorityValue the value
      */
     public void setPriorityValue(int priorityValue) {
         this.priorityValue = priorityValue;
@@ -36,7 +36,7 @@ public class Priority extends Entity {
     }
     /**
      * set the desciption of the Priority
-     * @param priorityDescription
+     * @param priorityDescription the priority
      */
     public void setPriorityDescription(String priorityDescription) {
         this.priorityDescription = priorityDescription;

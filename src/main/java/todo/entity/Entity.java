@@ -15,7 +15,7 @@ public abstract class Entity {
 
     /**
      * Sets the primary KEY (id)
-     * @param id
+     * @param id the primary key
      */
     public void setId(int id) {
         this.id = id;

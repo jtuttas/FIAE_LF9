@@ -1,0 +1,12 @@
+{
+    "swagger":"2.0",
+    "info": {
+        "title":"TODO API",
+        "version":"1.0"
+    },
+    "host": "localhost",
+    "basePath": "/",
+    "schemes": ["http"],
+    "paths": {
+    }
+}
