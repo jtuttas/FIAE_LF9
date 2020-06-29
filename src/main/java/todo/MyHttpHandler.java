@@ -33,7 +33,9 @@ public class MyHttpHandler implements HttpHandler {
      */
     public void handle(com.sun.net.httpserver.HttpExchange t) throws IOException {
         System.out.println("HTTP Method:" + t.getRequestMethod());
-        t.getResponseHeaders().add("Content-Type", "Application/JSON");
+        t.getResponseHeaders().add("Content-Type", "application/json");
+        t.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+
         String responce = "";
         if (t.getRequestMethod().equals("GET")) {
             handleGet(t);

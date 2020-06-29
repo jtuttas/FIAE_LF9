@@ -1,0 +1,38 @@
+openapi: '3.0.2'
+info:
+  title: TODO
+  description: API for a ToDo List
+  version: '1.0'
+servers:
+  - url: http://localhost:8000
+paths:
+  /project:
+    get:
+      summary: Returns list of projects
+      responses:
+        '200':
+          description: A JSON Array of projects
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 2
+                        name:
+                          type: string
+                          example: Ein Projekt
+        '500':
+          description: Something went wrong
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error message
