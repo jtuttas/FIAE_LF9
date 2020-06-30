@@ -6,24 +6,22 @@ POST http://localhost:8000/todo HTTP/1.1
 content-type: Application/JSON
 
 {
-    "title":"etwas machen",
-    "date": "2020-08-01",
-    "priId":2,
-    "proId":2
+    "title":"etwas machen 2222",
+    "priId":8,
+
 }
 
 ### Eine ToDo löschen
 DELETE http://localhost:8000/todo/3 HTTP/1.1
 
 ### Eine ToDo aktualisieren
-PUT http://localhost:8000/todo/2 HTTP/1.1
+PUT http://localhost:8000/todo/4 HTTP/1.1
 content-type: Application/JSON
 
 {
     "title":"etwas machen neu",
-    "date": "2020-08-01",
-    "priId":4,
-    "proId":2
+    "proId":8,
+    "date": 1
 }
 
 

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Set;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import todo.MissingParamaterException;
@@ -17,7 +18,7 @@ public class Task extends Entity {
     private String title;
     private Project project;
     private Priority priority;
-    private String date;
+    private String date=null;
 
     /**
      * Set the priority for a task
@@ -112,7 +113,18 @@ public class Task extends Entity {
      */
     @Override
     public String getUpdateStatement() {
-        return "UPDATE task SET title=\""+this.getTitle()+"\",proId="+this.project.getId()+",priId="+this.getPriority().getId()+",date=\""+this.date+"\" WHERE id="+this.getId()+";";
+        String sql= "UPDATE task SET title=\""+this.getTitle()+"\"";
+        if (project!=null) {
+            sql=sql+",proId="+this.project.getId();
+        }
+        if (priority!=null) {
+            sql=sql+",priId="+this.getPriority().getId();
+        }
+        if (date!=null) {
+            sql=sql+",date=\""+this.date+"\"";
+        }
+        sql+=" WHERE id="+this.getId()+";";
+        return sql;
     }
 
     /**
@@ -147,19 +159,48 @@ public class Task extends Entity {
     @Override
     public void parseJSON(String json) throws MissingParamaterException {
         System.out.print("Parse JSON:"+json);
-        JSONObject obj = new JSONObject(json);
-        if (obj.has("title")) {
-            this.title=obj.getString("title");
-            System.out.println("Set Title to "+this.title);
+        try {
+            JSONObject obj = new JSONObject(json);
+            if (obj.has("title")) {
+                this.title=obj.getString("title");
+                System.out.println("Set Title to "+this.title);
+            }
+            else {
+                throw new MissingParamaterException("Parameter title is missing");
+            }
+            if (obj.has("proId")) {
+                System.out.println("Set proId to "+obj.getInt("proId"));
+                this.project = new Project();
+                this.project.setId(obj.getInt("proId"));
+            }
+            else {
+                this.project=null;
+            }
+
+            if (obj.has("priId")) {
+                System.out.println("Set priId to "+obj.getInt("priId"));
+                this.priority = new Priority();
+                this.priority.setId(obj.getInt("priId"));
+            }
+            else {
+                this.priority=null;
+            }
+            
+            if (obj.has("date")) {
+                System.out.println("Set date to "+obj.getString("date"));
+                this.date=obj.getString("date");
+            }
+            else {
+                this.date=null;
+            }
         }
-        else {
-            throw new MissingParamaterException("Parameter title is missing");
+        catch (JSONException jx) {
+            jx.printStackTrace();
+            String msg = jx.getMessage();
+            msg=msg.replace("\"", "");
+            throw new MissingParamaterException(msg);
         }
-        this.project = new Project();
-        this.project.setId(obj.getInt("proId"));
-        this.priority = new Priority();
-        this.priority.setId(obj.getInt("priId"));
-        this.date=obj.getString("date");
+
     }
     
 }

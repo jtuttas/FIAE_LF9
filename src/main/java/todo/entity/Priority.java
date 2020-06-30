@@ -112,7 +112,9 @@ public class Priority extends Entity {
         else {
             throw new MissingParamaterException("parameter value is missing");
         }
-        this.priorityDescription=obj.getString("description");
-        System.out.println("Set Priority Description to "+this.priorityDescription);
+        if (obj.has("description")) {
+            this.priorityDescription=obj.getString("description");
+            System.out.println("Set Priority Description to "+this.priorityDescription);
+        }
     }
 }
