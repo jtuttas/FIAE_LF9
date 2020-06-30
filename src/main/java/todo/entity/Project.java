@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import org.json.JSONObject;
 
+import todo.MissingParamaterException;
+
 /**
  * Class of the Project Entity
  * 
@@ -81,12 +83,19 @@ public class Project extends Entity {
 
     /**
      * Create the Project from a JSON String
+     * 
+     * @throws Exception
      */
     @Override
-    public void parseJSON(String json) {
+    public void parseJSON(String json) throws MissingParamaterException {
         JSONObject obj = new JSONObject(json);
-        this.projectName=obj.getString("name");
-        System.out.println("Set Projektname to "+this.projectName);
+        if (obj.has("name")) {
+            this.projectName=obj.getString("name");
+            System.out.println("Set Projektname to "+this.projectName);
+        }
+        else {
+            throw new MissingParamaterException("Paramater name is missing");
+        }
     }
     
 }

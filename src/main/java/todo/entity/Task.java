@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.json.JSONObject;
 
+import todo.MissingParamaterException;
+
 /**
  * Task class
  */
@@ -139,13 +141,20 @@ public class Task extends Entity {
 
     /**
      * Converts a JSON String to the task Object
+     * 
+     * @throws MissingParamaterException
      */
     @Override
-    public void parseJSON(String json) {
+    public void parseJSON(String json) throws MissingParamaterException {
         System.out.print("Parse JSON:"+json);
         JSONObject obj = new JSONObject(json);
-        this.title=obj.getString("title");
-        System.out.println("Set Title to "+this.title);
+        if (obj.has("title")) {
+            this.title=obj.getString("title");
+            System.out.println("Set Title to "+this.title);
+        }
+        else {
+            throw new MissingParamaterException("Parameter title is missing");
+        }
         this.project = new Project();
         this.project.setId(obj.getInt("proId"));
         this.priority = new Priority();

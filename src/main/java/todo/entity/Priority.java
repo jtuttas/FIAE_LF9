@@ -2,8 +2,11 @@ package todo.entity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.MissingFormatArgumentException;
 
 import org.json.JSONObject;
+
+import todo.MissingParamaterException;
 
 /**
  * Entity class for the Priority Entity
@@ -96,12 +99,19 @@ public class Priority extends Entity {
 
     /**
      * Converts a JSON String to the Priority Object
+     * 
+     * @throws MissingParamaterException
      */
     @Override
-    public void parseJSON(String json) {
+    public void parseJSON(String json) throws MissingParamaterException {
         JSONObject obj = new JSONObject(json);
-        this.priorityValue=obj.getInt("value");
-        System.out.println("Set Priority to "+this.priorityValue);
+        if (obj.has("value")) {
+            this.priorityValue=obj.getInt("value");
+            System.out.println("Set Priority to "+this.priorityValue);
+        }
+        else {
+            throw new MissingParamaterException("parameter value is missing");
+        }
         this.priorityDescription=obj.getString("description");
         System.out.println("Set Priority Description to "+this.priorityDescription);
     }

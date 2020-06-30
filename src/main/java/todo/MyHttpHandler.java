@@ -33,9 +33,11 @@ public class MyHttpHandler implements HttpHandler {
      */
     public void handle(com.sun.net.httpserver.HttpExchange t) throws IOException {
         System.out.println("HTTP Method:" + t.getRequestMethod());
-        t.getResponseHeaders().add("Content-Type", "application/json");
         t.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
-
+        t.getResponseHeaders().add("Access-Control-Allow-Methods","GET, POST, DELETE, PUT, PATCH, OPTIONS");
+        t.getResponseHeaders().add("Access-Control-Allow-Headers","Content-Type, api_key, Authorization");
+        
+        t.getResponseHeaders().add("Content-Type", "application/json");
         String responce = "";
         if (t.getRequestMethod().equals("GET")) {
             handleGet(t);
@@ -50,7 +52,7 @@ public class MyHttpHandler implements HttpHandler {
             handleDelete(t);
         } else {
             responce = "{\"error\":\"unknown Method\"}";
-            t.sendResponseHeaders(500, responce.length());
+            t.sendResponseHeaders(200, responce.length());
             OutputStream os = t.getResponseBody();
             os.write(responce.getBytes());
             os.close();
@@ -116,6 +118,10 @@ public class MyHttpHandler implements HttpHandler {
             responce="{\"error\":\""+e.getMessage()+"\"}"; 
             e.printStackTrace();
             t.sendResponseHeaders(500, responce.length()); 
+        } catch (MissingParamaterException e1) {
+            responce="{\"error\":\""+e1.getMessage()+"\"}"; 
+            e1.printStackTrace();
+            t.sendResponseHeaders(500, responce.length()); 
         }
         OutputStream os = t.getResponseBody();
         os.write(responce.getBytes()); 
@@ -133,16 +139,26 @@ public class MyHttpHandler implements HttpHandler {
                 body=body+sc.nextLine();
             }
             System.out.println("Body:"+body);
-            e.parseJSON(body);
-            Statement stm = db.getConnection().createStatement();
-            System.out.println("Statement:"+e.getCreateStatement());
-            stm.execute(e.getCreateStatement());
-            responce=responce+"\"success\":true}"; 
-            t.sendResponseHeaders(200,responce.length());
+            if (body.length()==0) {
+                responce="{\"error\":\"empty Body\"}"; 
+                t.sendResponseHeaders(500, responce.length());     
+            }
+            else {
+                e.parseJSON(body);
+                Statement stm = db.getConnection().createStatement();
+                System.out.println("Statement:"+e.getCreateStatement());
+                stm.execute(e.getCreateStatement());
+                responce=responce+"\"success\":true}"; 
+                t.sendResponseHeaders(200,responce.length());
+            }
         } 
         catch (SQLException e) {
             responce="{\"error\":\""+e.getMessage()+"\"}"; 
             e.printStackTrace();
+            t.sendResponseHeaders(500, responce.length()); 
+        } catch (MissingParamaterException e1) {
+            responce="{\"error\":\""+e1.getMessage()+"\"}"; 
+            e1.printStackTrace();
             t.sendResponseHeaders(500, responce.length()); 
         }
         OutputStream os = t.getResponseBody();

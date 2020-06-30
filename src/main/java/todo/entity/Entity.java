@@ -3,6 +3,8 @@ package todo.entity;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import todo.MissingParamaterException;
+
 /**
  * Entity class for the Database
  */
@@ -69,6 +71,6 @@ public abstract class Entity {
      * Converts a JSON formated String into the given Objekt
      * @param json the JSON String
      */
-    public abstract void parseJSON(String json);
+    public abstract void parseJSON(String json) throws MissingParamaterException;
     
 }

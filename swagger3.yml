@@ -36,3 +36,114 @@ paths:
                   error:
                     type: string
                     example: error message
+    post:
+      summary: Add a new project
+      requestBody:
+        description: Add project
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object              
+              properties:
+                name:
+                  type: string
+                  example: name of project
+      responses:
+        '200':
+          description: Insert successfull
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        '500':
+          description: Something went wrong
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error message
+  
+  /project/{id}:
+    delete:
+      summary: Delete a Project
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: id of the project
+
+      responses:
+          '200':
+            description: Delete successfull
+            content: 
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                      example: true
+          '500':
+            description: Something went wrong
+            content: 
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+                      example: error message
+    put:
+      requestBody:
+        description: Update project
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object              
+              properties:
+                name:
+                  type: string
+                  example: new name of project
+      summary: Update a Project
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: id of the project
+
+      responses:
+          '200':
+            description: Update successfull
+            content: 
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                      example: true
+          '500':
+            description: Something went wrong
+            content: 
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+                      example: error message
+            
+

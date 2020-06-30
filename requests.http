@@ -39,7 +39,7 @@ POST http://localhost:8000/project HTTP/1.1
 content-type: Application/JSON
 
 {
-    "name":"neues Projekt"
+    "name":"neues Projekt3"
 }
 
 ### Eine Projekt löschen
