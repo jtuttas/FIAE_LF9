@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDO</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Tasks</h1>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Tasks</a>
+        <a class="navbar-brand" href="priority.html">Priorities</a>
+        <a class="navbar-brand" href="project.html">Projects</a>
+    </nav>
+    <div class="row">
+        <div class="col-md-12">
+            <button id="create" type="button" class="btn btn-primary btn-lg">Create</button>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+
+            <ul id="list" class="list-group">
+                <li class="list-group-item">
+                    <button type="button" class="btn btn-warning">Update</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                    Ein Eintrag
+                </li>
+                <li class="list-group-item">
+                    <button type="button" class="btn btn-warning">Update</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                    noch ein Eintrag
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title" id="exampleModalLongTitle"><strong id="dialogTitle">Edit
+                            Priority</strong></span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">Projektname:</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="name" id="name" class="form-control" value=""
+                                    required="required" pattern="" title="">
+                            </div>
+                            <label for="value" class="col-sm-2 control-label">Wert:</label>
+                            <div class="col-sm-10">
+                                <input type="number" name="value" id="value" class="form-control" value=""
+                                    required="required" pattern="" title="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="saveChanges" method="update" type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        $("#list").empty();
+        var dataModel;
+        var projectModel;
+        var priorityModel;
+        var selectedId;
+        $.getJSON("http://localhost:8000/task",
+            function (data, textStatus, jqXHR) {
+
+        $.getJSON("http://localhost:8000/todo",
+            function (data, textStatus, jqXHR) {
+                dataModel = data;
+                var i = 0;
+                data.forEach(element => {
+                    console.log('element=' + JSON.stringify(element));
+                    $("#list").append('<li class="list-group-item"><button type="button" index="' + i + '" key="' + element["id"] + '" class="btn btn-warning update">Update</button><button key="' + element["id"] + '" type="button" class="btn btn-danger delete">Delete</button>&nbsp;<strong>(' + element["value"] + ') &nbsp;' + element["description"] + '</strong><li>');
+                    i++;
+                });
+                $(".update").click(function (e) {
+                    console.log('UPDATE id=' + $(this).attr('key'));
+                    selectedId = $(this).attr('key');
+                    $("#dialogTitle").text("Edit Priority id=" + $(this).attr('key'));
+                    $("#saveChanges").text("Save Changes");
+                    $("#saveChanges").attr("method", "update")
+                    var index = $(this).attr('index');
+                    $("#name").val(dataModel[$(this).attr('index')]["description"]);
+                    $("#value").val(dataModel[$(this).attr('index')]["value"]);
+                    $('#form').modal('toggle');
+                });
+                $(".delete").click(function (e) {
+                    console.log('DELETE id=' + $(this).attr('key'));
+                    $.ajax({
+                        type: "DELETE",
+                        url: "http://localhost:8000/priority/" + $(this).attr('key'),
+                        dataType: "application/json",
+                        success: function (response) {
+                            console.log('response: ' + JSON.stringify(response));
+                        }
+                    });
+                });
+
+            }
+        );
+
+        $("#saveChanges").click(function (e) {
+            $('#form').modal('toggle');
+            if ($(this).attr("method") == "update") {
+                console.log('Update...');
+                $.ajax({
+                    type: "PUT",
+                    url: "http://localhost:8000/priority/" + selectedId,
+                    data: JSON.stringify({
+                        "description": $("#name").val(),
+                        "value": $("#value").val()
+                    }),
+                    dataType: "application/json",
+                    success: function (response) {
+                        console.log('response: ' + JSON.stringify(response));
+                    }
+                });
+            }
+            else {
+                console.log('Insert...');
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/priority",
+                    data: JSON.stringify(
+                        {
+                            "description": $("#name").val(),
+                            "value": $("#value").val()
+                        }
+                    ),
+                    dataType: "application/json",
+                    success: function (response) {
+                        console.log('response: ' + JSON.stringify(response));
+                    }
+                });
+            }
+        });
+
+        $("#create").click(function (e) {
+            console.log('New ..');
+            $("#saveChanges").text("Create");
+            $("#saveChanges").attr("method", "insert")
+            $("#dialogTitle").text("New Project");
+            $("#name").val("");
+            $('#form').modal('toggle');
+
+        });
+    });    
+</script>
+
+</html>
