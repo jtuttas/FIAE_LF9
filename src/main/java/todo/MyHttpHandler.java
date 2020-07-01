@@ -147,6 +147,7 @@ public class MyHttpHandler implements HttpHandler {
                 e.parseJSON(body);
                 Statement stm = db.getConnection().createStatement();
                 System.out.println("Statement:"+e.getCreateStatement());
+                System.out.println("parse body finished");
                 stm.execute(e.getCreateStatement());
                 responce=responce+"\"success\":true}"; 
                 t.sendResponseHeaders(200,responce.length());

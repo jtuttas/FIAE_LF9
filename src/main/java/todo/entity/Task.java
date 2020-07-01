@@ -104,7 +104,21 @@ public class Task extends Entity {
      */
     @Override
     public String getCreateStatement() {
-        return "INSERT INTO task(title,proId,priId,date) VALUES (\""+this.getTitle()+"\","+this.project.getId()+","+this.priority.getId()+",\""+this.date+"\");";
+        String sql1="INSERT INTO task(title";
+        String sql2=") VALUES (\""+this.title+"\"";
+        if (this.project!=null) {
+            sql1=sql1+",proId";
+            sql2=sql2+","+this.project.getId();
+        }
+        if (this.priority!=null) {
+            sql1=sql1+",priId";
+            sql2=sql2+","+this.priority.getId();
+        }
+        if (this.date != null) {
+            sql1=sql1+",date";
+            sql2=sql2+","+this.date;
+        }
+        return sql1+sql2+")";
     }
 
 
@@ -166,7 +180,7 @@ public class Task extends Entity {
                 System.out.println("Set Title to "+this.title);
             }
             else {
-                throw new MissingParamaterException("Parameter title is missing");
+                throw new MissingParamaterException("Parameter required title is missing");
             }
             if (obj.has("proId")) {
                 System.out.println("Set proId to "+obj.getInt("proId"));
@@ -174,15 +188,17 @@ public class Task extends Entity {
                 this.project.setId(obj.getInt("proId"));
             }
             else {
+                System.out.println("No proId");
                 this.project=null;
             }
-
+            
             if (obj.has("priId")) {
                 System.out.println("Set priId to "+obj.getInt("priId"));
                 this.priority = new Priority();
                 this.priority.setId(obj.getInt("priId"));
             }
             else {
+                System.out.println("No priId");
                 this.priority=null;
             }
             
@@ -191,6 +207,7 @@ public class Task extends Entity {
                 this.date=obj.getString("date");
             }
             else {
+                System.out.println("No date");
                 this.date=null;
             }
         }
