@@ -49,6 +49,8 @@ Das Produkt soll über eine *CI/CD* als *Docker Container* ausgeliefert werden u
 - VMs (LF9)
 - Portfreigaben / Firewall (LF9)
 - Docker (LF9)
+- Build Tools MAVEN (LF9)
+- CI/CD (LF9)
 ### Projektmanagement
 - Vorgensmodelle / SCRUM (LF8)
 - TDD (LF8)

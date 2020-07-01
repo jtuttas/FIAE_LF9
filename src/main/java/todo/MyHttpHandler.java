@@ -2,6 +2,8 @@ package todo;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -37,7 +39,7 @@ public class MyHttpHandler implements HttpHandler {
         t.getResponseHeaders().add("Access-Control-Allow-Methods","GET, POST, DELETE, PUT, PATCH, OPTIONS");
         t.getResponseHeaders().add("Access-Control-Allow-Headers","Content-Type, api_key, Authorization");
         
-        t.getResponseHeaders().add("Content-Type", "application/json");
+        t.getResponseHeaders().add("Content-Type", "application/json; charset=ISO_8859_1");
         String responce = "";
         if (t.getRequestMethod().equals("GET")) {
             handleGet(t);
@@ -177,11 +179,11 @@ public class MyHttpHandler implements HttpHandler {
             ResultSet rs = stm.executeQuery(this.e.getReadStatement());
             while (rs.next()) {
                 e.setEnity(rs);
-                System.out.println("JSON:" + e.toJSON());
                 responce = responce + e.toJSON() + ",\r\n";
             }
             responce = responce.substring(0, responce.length() - 3);
             responce = responce + "]";
+            System.out.print("Response:"+responce);
             t.sendResponseHeaders(200, responce.length());
         } catch (SQLException e) {
             responce = "{\"error\":\"" + e.getMessage() + "\"}";
@@ -189,7 +191,8 @@ public class MyHttpHandler implements HttpHandler {
             t.sendResponseHeaders(500, responce.length());
         }
         OutputStream os = t.getResponseBody();
-        os.write(responce.getBytes());
+        os.write(responce.getBytes(StandardCharsets.ISO_8859_1));
+        os.flush();
         os.close();
     }
 
