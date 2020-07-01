@@ -24,7 +24,7 @@ deploy:
         - master
     artifacts:
         paths:
-            - target/httpServer-1.0-SNAPSHOT.jar
+            - target/todo-todo-jar-with-dependencies.jar
 
 
 docker build:
@@ -32,7 +32,7 @@ docker build:
   stage: Build image
   script:
     - docker info
-    - docker build -t tuttas/httpserver .
+    - docker build -t tuttas/fiae-ls8_9_10a .
   tags:
     - myrunner
 
@@ -43,7 +43,7 @@ docker pushlocal:
     - master
   script:
     - echo "$LOCAL_REGISTRY" | docker login -u root --password-stdin service.joerg-tuttas.de:5555
-    - docker build -t service.joerg-tuttas.de:5555/root/httpserver .
-    - docker push service.joerg-tuttas.de:5555/root/httpserver
+    - docker build -t service.joerg-tuttas.de:5555/root/fiae-ls8_9_10a .
+    - docker push service.joerg-tuttas.de:5555/root/fiae-ls8_9_10a
   tags:
     - myrunner
