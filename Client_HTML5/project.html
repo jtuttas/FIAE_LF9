@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="main.js"></script>
 </head>
 
 <body>
@@ -28,20 +29,21 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-md-12">
-
-            <ul id="list" class="list-group">
-                <li class="list-group-item">
-                    <button type="button" class="btn btn-warning">Update</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
-                    Ein Eintrag
-                </li>
-                <li class="list-group-item">
-                    <button type="button" class="btn btn-warning">Update</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
-                    noch ein Eintrag
-                </li>
-            </ul>
+        <div class="col-md-12">           
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;"></th>
+                        <th>name</th>
+                    </tr>
+                </thead>
+                <tbody id="body">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>            
         </div>
     </div>
     <!-- Modal -->
@@ -78,16 +80,16 @@
 </body>
 <script>
     $(document).ready(function () {
-        $("#list").empty();
+        $("#body").empty();
         var dataModel;
         var selectedId;
-        $.getJSON("http://localhost:8000/project",
+        $.getJSON(server+"/project",
             function (data, textStatus, jqXHR) {
                 dataModel = data;
                 var i = 0;
                 data.forEach(element => {
                     console.log('element=' + JSON.stringify(element));
-                    $("#list").append('<li class="list-group-item"><button type="button" index="' + i + '" key="' + element["id"] + '" class="btn btn-warning update">Update</button><button key="' + element["id"] + '" type="button" class="btn btn-danger delete">Delete</button>&nbsp;<strong>' + element["name"] + '</strong><li>');
+                    $("#body").append('<tr><td><button type="button" index="' + i + '" key="' + element["id"] + '" class="btn btn-warning update">Update</button><button key="' + element["id"] + '" type="button" class="btn btn-danger delete">Delete</button></td><td>' + element["name"] + '</td></tr>');
                     i++;
                 });
                 $(".update").click(function (e) {
@@ -104,7 +106,7 @@
                     console.log('DELETE id=' + $(this).attr('key'));
                     $.ajax({
                         type: "DELETE",
-                        url: "http://localhost:8000/project/" + $(this).attr('key'),
+                        url: server+"/project/" + $(this).attr('key'),
                         dataType: "application/json",
                         success: function (response) {
                             console.log('response: ' + JSON.stringify(response));
@@ -121,7 +123,7 @@
                 console.log('Update...');
                 $.ajax({
                     type: "PUT",
-                    url: "http://localhost:8000/project/" + selectedId,
+                    url: server+ "/project/" + selectedId,
                     data: JSON.stringify({
                         "name": $("#name").val()
                     }),
@@ -135,7 +137,7 @@
                 console.log('Insert...');
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8000/project",
+                    url: server+ "/project",
                     data: JSON.stringify(
                         {
                             "name": $("#name").val()

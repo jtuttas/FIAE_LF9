@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="main.js"></script>
 </head>
 
 <body>
@@ -30,18 +31,28 @@
     <div class="row">
         <div class="col-md-12">
 
-            <ul id="list" class="list-group">
-                <li class="list-group-item">
-                    <button type="button" class="btn btn-warning">Update</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
-                    Ein Eintrag
-                </li>
-                <li class="list-group-item">
-                    <button type="button" class="btn btn-warning">Update</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
-                    noch ein Eintrag
-                </li>
-            </ul>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>title</th>
+                        <th>project</th>
+                        <th>date</th>
+                        <th>priority</th>
+                    </tr>
+                </thead>
+                <tbody id="body">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
     </div>
     <!-- Modal -->
@@ -51,7 +62,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <span class="modal-title" id="exampleModalLongTitle"><strong id="dialogTitle">Edit
-                            Priority</strong></span>
+                            Todo</strong></span>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -59,18 +70,41 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group">
-                            <label for="name" class="col-sm-2 control-label">Projektname:</label>
+                            <label for="title" class="col-sm-2 control-label">Title:</label>
                             <div class="col-sm-10">
-                                <input type="text" name="name" id="name" class="form-control" value=""
+                                <input type="text" name="title" id="title" class="form-control" value=""
                                     required="required" pattern="" title="">
                             </div>
-                            <label for="value" class="col-sm-2 control-label">Wert:</label>
+                            <label for="date" class="col-sm-2 control-label">date:</label>
                             <div class="col-sm-10">
-                                <input type="number" name="value" id="value" class="form-control" value=""
+                                <input type="date" name="date" id="date" class="form-control" value=""
                                     required="required" pattern="" title="">
                             </div>
+                            <label for="selectedProject" class="col-sm-2 control-label">Project:</label>
+                            <div class="col-sm-10">
+                                <div class="dropdown">
+                                    <button id="selectedProject" class="btn btn-primary dropdown-toggle" type="button"
+                                        data-toggle="dropdown">Projects
+                                        <span class="caret"></span></button>
+                                    <ul id="projects" class="dropdown-menu">
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <label for="selectedPriority" class="col-sm-2 control-label">Priority:</label>
+                            <div class="col-sm-10">
+                                <div class="dropdown">
+                                    <button id="selectedPriority" class="btn btn-primary dropdown-toggle" type="button"
+                                        data-toggle="dropdown">Priorities
+                                        <span class="caret"></span></button>
+                                    <ul id="priorities" class="dropdown-menu">
+                                    </ul>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -81,49 +115,114 @@
     </div>
 </body>
 <script>
+    var dataModel;
+    var projectModel;
+    var priorityModel;
+    var selectedPriority;
+    var selectedProject;
+
+    function getProject(i) {
+        var project;
+        projectModel.forEach(element => {
+
+            if (element["id"] == i) {
+                project = element;
+            }
+        });
+        return project;
+    }
+    function getPriority(i) {
+        var priority;
+        priorityModel.forEach(element => {
+            if (element["id"] == i) {
+                priority=element;
+            }
+        });
+        return priority;
+    }
+
     $(document).ready(function () {
         $("#list").empty();
-        var dataModel;
-        var projectModel;
-        var priorityModel;
         var selectedId;
-        $.getJSON("http://localhost:8000/task",
-            function (data, textStatus, jqXHR) {
 
-        $.getJSON("http://localhost:8000/todo",
-            function (data, textStatus, jqXHR) {
-                dataModel = data;
-                var i = 0;
-                data.forEach(element => {
-                    console.log('element=' + JSON.stringify(element));
-                    $("#list").append('<li class="list-group-item"><button type="button" index="' + i + '" key="' + element["id"] + '" class="btn btn-warning update">Update</button><button key="' + element["id"] + '" type="button" class="btn btn-danger delete">Delete</button>&nbsp;<strong>(' + element["value"] + ') &nbsp;' + element["description"] + '</strong><li>');
-                    i++;
-                });
-                $(".update").click(function (e) {
-                    console.log('UPDATE id=' + $(this).attr('key'));
-                    selectedId = $(this).attr('key');
-                    $("#dialogTitle").text("Edit Priority id=" + $(this).attr('key'));
-                    $("#saveChanges").text("Save Changes");
-                    $("#saveChanges").attr("method", "update")
-                    var index = $(this).attr('index');
-                    $("#name").val(dataModel[$(this).attr('index')]["description"]);
-                    $("#value").val(dataModel[$(this).attr('index')]["value"]);
-                    $('#form').modal('toggle');
-                });
-                $(".delete").click(function (e) {
-                    console.log('DELETE id=' + $(this).attr('key'));
-                    $.ajax({
-                        type: "DELETE",
-                        url: "http://localhost:8000/priority/" + $(this).attr('key'),
-                        dataType: "application/json",
-                        success: function (response) {
-                            console.log('response: ' + JSON.stringify(response));
-                        }
-                    });
-                });
+        $.when($.getJSON(server + "/project"), $.getJSON(server + "/priority"), $.getJSON(server + "/todo")).then(function (pro, pri, todo) {
+            priorityModel = pri[0];
+            projectModel = pro[0];
+            dataModel = todo[0];
 
-            }
-        );
+            i=0;
+            $("#projects").empty();
+            projectModel.forEach(element => {
+                $("#projects").append('<li index="'+i+'" key="' + element["id"] + '"><a href="#">' + element["name"] + '</a></li>');
+            });
+            $("#selectedProject").empty();
+            $("#selectedProject").append(projectModel[0]["name"] + '<span class="caret"></span>');          
+            $('#projects li').on('click', function () {
+                console.log('Selected Index:'+$(this).attr("index"));
+                $("#selectedProject").empty();
+                $("#selectedProject").append($(this).text() + '<span class="caret"></span>');
+            });
+
+            i=0;
+            $("#priorities").empty();
+            priorityModel.forEach(element => {
+                $("#priorities").append('<li index="'+i+'"  key="' + element["id"] + '"><a href="#">' + element["description"] + '</a></li>');
+            });
+            $("#selectedPriority").empty();
+            $("#selectedPriority").append(priorityModel[0]["description"] + '<span class="caret"></span>');
+            $('#priorities li').on('click', function () {
+                console.log('Selected Index:'+$(this).attr("index"));
+                $("#selectedPriority").empty();
+                $("#selectedPriority").append($(this).text() + '<span class="caret"></span>');
+            });
+
+
+            $("#body").empty();
+            var i = 0;
+            dataModel.forEach(element => {
+                console.log('element=' + JSON.stringify(element));
+                pri = getPriority(element["priId"]);
+                pro = getProject(element["proId"]);
+                console.log("Pri="+JSON.stringify(pri));
+                console.log("Pro="+JSON.stringify(pro));
+                
+                $("#body").append('<tr><td><button type="button" index="' + i + '" key="' + element["id"] + '" class="btn btn-warning update">Update</button><button key="' + element["id"] + '" type="button" class="btn btn-danger delete">Delete</button></td><td>' + element["title"] + '</td><td>' + pro["name"] + '</td><td>' + element["date"] + '</td><td>' + pri["description"] + '</td></tr>');
+                i++;
+            });
+            $(".update").click(function (e) {
+                console.log('UPDATE id=' + $(this).attr('key')+ " index="+$(this).attr('index'));
+                selectedId = $(this).attr('key');
+                $("#dialogTitle").text("Edit Todo id=" + $(this).attr('key'));
+                $("#saveChanges").text("Save Changes");
+                $("#saveChanges").attr("method", "update")
+                var index = $(this).attr('index');
+                $("#title").val(dataModel[$(this).attr('index')]["title"]);
+                $("#date").val(dataModel[$(this).attr('index')]["date"]);
+                $("#selectedProject").empty();
+                selectedProject=projectModel[dataModel[$(this).attr('index')]["proId"]];
+                console.log('selectedProIdt='+dataModel[$(this).attr('index')]["proId"]);
+                console.log('selectedProject='+JSON.stringify(selectedProject));
+                $("#selectedProject").append(selectedProject["name"] + '<span class="caret"></span>');
+
+                $("#selectedPriority").empty();
+                selectedPriority=priorityModel[dataModel[$(this).attr('index')]["priId"]]
+                $("#selectedPriority").append(selectedPriority["description"] + '<span class="caret"></span>');
+                $('#form').modal('toggle');
+            });
+            $(".delete").click(function (e) {
+                console.log('DELETE id=' + $(this).attr('key'));
+                $.ajax({
+                    type: "DELETE",
+                    url: server + "/todo/" + $(this).attr('key'),
+                    dataType: "application/json",
+                    success: function (response) {
+                        console.log('response: ' + JSON.stringify(response));
+                    }
+                });
+            });
+
+        });
+
 
         $("#saveChanges").click(function (e) {
             $('#form').modal('toggle');
@@ -131,7 +230,7 @@
                 console.log('Update...');
                 $.ajax({
                     type: "PUT",
-                    url: "http://localhost:8000/priority/" + selectedId,
+                    url: server + "/priority/" + selectedId,
                     data: JSON.stringify({
                         "description": $("#name").val(),
                         "value": $("#value").val()
@@ -146,7 +245,7 @@
                 console.log('Insert...');
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8000/priority",
+                    url: server + "/priority",
                     data: JSON.stringify(
                         {
                             "description": $("#name").val(),
