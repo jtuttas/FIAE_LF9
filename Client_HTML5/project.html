@@ -83,8 +83,11 @@
         $("#body").empty();
         var dataModel;
         var selectedId;
+      
         $.getJSON(server+"/project",
             function (data, textStatus, jqXHR) {
+               
+                
                 dataModel = data;
                 var i = 0;
                 data.forEach(element => {

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="ISO_8859_1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDO</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -87,12 +87,14 @@
     </div>
 </body>
 <script>
+   
     $(document).ready(function () {
         $("#body").empty();
         var dataModel;
         var selectedId;
+     
         $.getJSON(server+"/priority",
-            function (data, textStatus, jqXHR) {
+            function (data, textStatus, jqXHR) {                
                 dataModel = data;
                 var i = 0;
                 data.forEach(element => {

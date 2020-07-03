@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+import java.util.concurrent.RecursiveAction;
+
 import com.sun.net.httpserver.*;
 import todo.entity.Entity;
 
@@ -39,7 +41,7 @@ public class MyHttpHandler implements HttpHandler {
         t.getResponseHeaders().add("Access-Control-Allow-Methods","GET, POST, DELETE, PUT, PATCH, OPTIONS");
         t.getResponseHeaders().add("Access-Control-Allow-Headers","Content-Type, api_key, Authorization");
         
-        t.getResponseHeaders().add("Content-Type", "application/json; charset=ISO_8859_1");
+        t.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
         String responce = "";
         if (t.getRequestMethod().equals("GET")) {
             handleGet(t);
@@ -173,6 +175,7 @@ public class MyHttpHandler implements HttpHandler {
     private void handleGet(com.sun.net.httpserver.HttpExchange t) throws IOException {
         System.out.println("Handle Get");
         String responce = "[";
+        
         try {
             Statement stm = db.getConnection().createStatement();
             System.out.println("Query:" + this.e.getReadStatement());
@@ -184,14 +187,16 @@ public class MyHttpHandler implements HttpHandler {
             responce = responce.substring(0, responce.length() - 3);
             responce = responce + "]";
             System.out.print("Response:"+responce);
-            t.sendResponseHeaders(200, responce.length());
+            byte[] b = responce.getBytes();
+            t.sendResponseHeaders(200, b.length);
         } catch (SQLException e) {
             responce = "{\"error\":\"" + e.getMessage() + "\"}";
             e.printStackTrace();
             t.sendResponseHeaders(500, responce.length());
         }
+        
         OutputStream os = t.getResponseBody();
-        os.write(responce.getBytes(StandardCharsets.ISO_8859_1));
+        os.write(responce.getBytes());
         os.flush();
         os.close();
     }

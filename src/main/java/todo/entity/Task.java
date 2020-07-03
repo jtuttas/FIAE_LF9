@@ -127,8 +127,10 @@ public class Task extends Entity {
      */
     @Override
     public String getUpdateStatement() {
+        System.out.println("Get Update Statement");
         String sql= "UPDATE task SET title=\""+this.getTitle()+"\"";
         if (project!=null) {
+            System.out.println("Project: "+this.project.getId());
             sql=sql+",proId="+this.project.getId();
         }
         if (priority!=null) {
@@ -183,9 +185,11 @@ public class Task extends Entity {
                 throw new MissingParamaterException("Parameter required title is missing");
             }
             if (obj.has("proId")) {
-                System.out.println("Set proId to "+obj.getInt("proId"));
                 this.project = new Project();
-                this.project.setId(obj.getInt("proId"));
+                if (!obj.isNull("proId")) {
+                    System.out.println("Set proId to "+obj.getInt("proId"));
+                    this.project.setId(obj.getInt("proId"));
+                }
             }
             else {
                 System.out.println("No proId");
@@ -193,9 +197,11 @@ public class Task extends Entity {
             }
             
             if (obj.has("priId")) {
-                System.out.println("Set priId to "+obj.getInt("priId"));
                 this.priority = new Priority();
-                this.priority.setId(obj.getInt("priId"));
+                if (!obj.isNull("priId")) {
+                    System.out.println("Set priId to "+obj.getInt("priId"));
+                    this.priority.setId(obj.getInt("priId"));
+                }
             }
             else {
                 System.out.println("No priId");
@@ -203,8 +209,10 @@ public class Task extends Entity {
             }
             
             if (obj.has("date")) {
-                System.out.println("Set date to "+obj.getString("date"));
-                this.date=obj.getString("date");
+                if (!obj.isNull("date")) {
+                    System.out.println("Set date to "+obj.getString("date"));
+                    this.date=obj.getString("date");
+                }
             }
             else {
                 System.out.println("No date");

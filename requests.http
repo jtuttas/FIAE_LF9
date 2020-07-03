@@ -8,7 +8,7 @@ content-type: Application/JSON
 {
     "title":"etwas machen 2222",
     "date": "2020-01-01",
-    "proId": 8,
+    "proId": null,
     "priId":8
 
 }

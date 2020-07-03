@@ -13,7 +13,7 @@ public abstract class Entity {
     /**
      * id of the primary Key
      */
-    protected int id;
+    protected Integer id=null;
 
     /**
      * Sets the primary KEY (id)
@@ -27,7 +27,7 @@ public abstract class Entity {
      * Get the primary key
      * @return the primary key
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
