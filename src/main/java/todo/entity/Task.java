@@ -18,10 +18,11 @@ public class Task extends Entity {
     private String title;
     private Project project;
     private Priority priority;
-    private String date=null;
+    private String date = null;
 
     /**
      * Set the priority for a task
+     * 
      * @param priority the prority
      */
     public void setPriority(Priority priority) {
@@ -30,6 +31,7 @@ public class Task extends Entity {
 
     /**
      * sets the project for the task
+     * 
      * @param project the project
      */
     public void setProject(Project project) {
@@ -38,6 +40,7 @@ public class Task extends Entity {
 
     /**
      * set the title of a task
+     * 
      * @param title the title
      */
     public void setTitle(String title) {
@@ -46,6 +49,7 @@ public class Task extends Entity {
 
     /**
      * get the priority of the task
+     * 
      * @return the priority
      */
     public Priority getPriority() {
@@ -54,6 +58,7 @@ public class Task extends Entity {
 
     /**
      * get the project of a task
+     * 
      * @return the project
      */
     public Project getProject() {
@@ -62,6 +67,7 @@ public class Task extends Entity {
 
     /**
      * get the title of the task
+     * 
      * @return the title
      */
     public String getTitle() {
@@ -70,6 +76,7 @@ public class Task extends Entity {
 
     /**
      * set the date for the task
+     * 
      * @param date the date
      */
     public void setDate(String date) {
@@ -78,12 +85,12 @@ public class Task extends Entity {
 
     /**
      * get the date for the task
+     * 
      * @return the date
      */
     public String getDate() {
         return date;
     }
-
 
     /**
      * Build the task from the ResulSet of the database
@@ -95,8 +102,8 @@ public class Task extends Entity {
         project = new Project();
         project.setId(rs.getInt("proId"));
         priority = new Priority();
-        priority.setId(rs.getInt("priId"));       
-        this.date=rs.getString("date");
+        priority.setId(rs.getInt("priId"));
+        this.date = rs.getString("date");
     }
 
     /**
@@ -104,23 +111,22 @@ public class Task extends Entity {
      */
     @Override
     public String getCreateStatement() {
-        String sql1="INSERT INTO task(title";
-        String sql2=") VALUES (\""+this.title+"\"";
-        if (this.project!=null) {
-            sql1=sql1+",proId";
-            sql2=sql2+","+this.project.getId();
+        String sql1 = "INSERT INTO task(title";
+        String sql2 = ") VALUES (\"" + this.title + "\"";
+        if (this.project != null) {
+            sql1 = sql1 + ",proId";
+            sql2 = sql2 + "," + this.project.getId();
         }
-        if (this.priority!=null) {
-            sql1=sql1+",priId";
-            sql2=sql2+","+this.priority.getId();
+        if (this.priority != null) {
+            sql1 = sql1 + ",priId";
+            sql2 = sql2 + "," + this.priority.getId();
         }
         if (this.date != null) {
-            sql1=sql1+",date";
-            sql2=sql2+","+this.date;
+            sql1 = sql1 + ",date";
+            sql2 = sql2 + "," + this.date;
         }
-        return sql1+sql2+")";
+        return sql1 + sql2 + ")";
     }
-
 
     /**
      * returns the UPDATE statement of the task
@@ -128,18 +134,18 @@ public class Task extends Entity {
     @Override
     public String getUpdateStatement() {
         System.out.println("Get Update Statement");
-        String sql= "UPDATE task SET title=\""+this.getTitle()+"\"";
-        if (project!=null) {
-            System.out.println("Project: "+this.project.getId());
-            sql=sql+",proId="+this.project.getId();
+        String sql = "UPDATE task SET title=\"" + this.getTitle() + "\"";
+        if (project != null) {
+            System.out.println("Project: " + this.project.getId());
+            sql = sql + ",proId=" + this.project.getId();
         }
-        if (priority!=null) {
-            sql=sql+",priId="+this.getPriority().getId();
+        if (priority != null) {
+            sql = sql + ",priId=" + this.getPriority().getId();
         }
-        if (date!=null) {
-            sql=sql+",date=\""+this.date+"\"";
+        if (date != null) {
+            sql = sql + ",date=\"" + this.date + "\"";
         }
-        sql+=" WHERE id="+this.getId()+";";
+        sql += " WHERE id=" + this.getId() + ";";
         return sql;
     }
 
@@ -148,7 +154,7 @@ public class Task extends Entity {
      */
     @Override
     public String getDeleteStatement() {
-        return "DELETE FROM task WHERE id="+this.getId()+";";
+        return "DELETE FROM task WHERE id=" + this.getId() + ";";
     }
 
     /**
@@ -164,7 +170,17 @@ public class Task extends Entity {
      */
     @Override
     public String toJSON() {
-        return "{\"id\":"+this.getId()+",\r\n\"title\":\""+this.getTitle()+"\",\r\n\"proId\":"+this.getProject().getId()+",\r\n\"priId\":"+this.getPriority().getId()+",\r\n\"date\":\""+this.date+"\"}";
+        String s ="";
+        s+="{\"id\":" + this.getId() + ",\r\n\"title\":\"" + this.getTitle() + "\",\r\n";
+        if (this.getProject()!=null) {
+            s+="\"proId\":"+ this.getProject().getId() + ",\r\n";
+        }
+        if (this.getPriority()!=null) {
+            s+="\"priId\":"+ this.getPriority().getId() + ",\r\n";
+
+        }
+        s+="\r\n\"date\":\""+ this.date + "\"}";
+        return s;
     }
 
     /**
@@ -219,7 +235,9 @@ public class Task extends Entity {
                 this.date=null;
             }
             if (obj.has("id")) {
-                this.setId(obj.getInt("id"));
+                if (!obj.isNull("id")) {
+                    this.setId(obj.getInt("id"));
+                }
     
             }
         }
@@ -231,5 +249,5 @@ public class Task extends Entity {
         }
 
     }
-    
+
 }

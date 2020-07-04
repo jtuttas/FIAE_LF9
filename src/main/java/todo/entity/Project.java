@@ -97,7 +97,9 @@ public class Project extends Entity {
             throw new MissingParamaterException("Paramater name is missing");
         }
         if (obj.has("id")) {
-            this.setId(obj.getInt("id"));
+            if (!obj.isNull("id")){
+                this.setId(obj.getInt("id"));
+            }
 
         }
     }

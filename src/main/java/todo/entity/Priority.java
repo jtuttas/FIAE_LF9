@@ -117,7 +117,9 @@ public class Priority extends Entity {
             System.out.println("Set Priority Description to "+this.priorityDescription);
         }
         if (obj.has("id")) {
-            this.setId(obj.getInt("id"));
+            if (!obj.isNull("id")) {
+                this.setId(obj.getInt("id"));
+            }
 
         }
     }
