@@ -120,6 +120,7 @@
     var priorityModel;
     var selectedPriority = { "id": -1, "description": undefined };
     var selectedProject = { "id": -1, "description": undefined };;
+    var selectedId;
 
     /**
      * Returns the Project for a given ID (PK)
@@ -148,13 +149,11 @@
         return priority;
     }
 
-    $(document).ready(function () {
+    /**
+     * Update the View and Register event handler für update and delete
+     */
+    function updateView(params) {
         $("#list").empty();
-        var selectedId;
-        $.ajaxSetup({
-            scriptCharset: "ISO_8859_1",
-            contentType: "application/json; charset=ISO_8859_1"
-        });
         $.when($.getJSON(server + "/project"), $.getJSON(server + "/priority"), $.getJSON(server + "/todo")).then(function (pro, pri, todo) {
             priorityModel = pri[0];
             projectModel = pro[0];
@@ -234,15 +233,24 @@
                 $.ajax({
                     type: "DELETE",
                     url: server + "/todo/" + $(this).attr('key'),
-                    dataType: "application/json",
+                    dataType: "json",
                     success: function (response) {
                         console.log('response: ' + JSON.stringify(response));
+                        updateView();
+                    },
+                    error: function () {
+                        updateView();
+                        console.log("We have an Error!");
                     }
                 });
             });
 
         });
 
+    }
+
+    $(document).ready(function () {
+        updateView();
 
         $("#saveChanges").click(function (e) {
             $('#form').modal('toggle');
@@ -270,9 +278,14 @@
                     type: "PUT",
                     url: server + "/todo/" + selectedId,
                     data: JSON.stringify(obj),
-                    dataType: "application/json",
+                    dataType: "json",
                     success: function (response) {
+                        updateView();
                         console.log('response: ' + JSON.stringify(response));
+                    },
+                    error: function () {
+                        updateView();
+                        console.log("We have an Error!");
                     }
                 });
             }
@@ -295,9 +308,14 @@
                     type: "POST",
                     url: server + "/todo",
                     data: JSON.stringify(obj),
-                    dataType: "application/json",
+                    dataType: "json",
                     success: function (response) {
+                        updateView();
                         console.log('response: ' + JSON.stringify(response));
+                    },
+                    error: function () {
+                        updateView();
+                        console.log("We have an Error!");
                     }
                 });
 

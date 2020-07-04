@@ -29,7 +29,7 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-md-12">           
+        <div class="col-md-12">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -43,7 +43,7 @@
                         <td></td>
                     </tr>
                 </tbody>
-            </table>            
+            </table>
         </div>
     </div>
     <!-- Modal -->
@@ -79,15 +79,19 @@
     </div>
 </body>
 <script>
-    $(document).ready(function () {
+    var dataModel;
+    var selectedId;
+
+    /**
+ * Update the View and Register event handler für update and delete
+ */
+    function updateView(params) {
+        console.log('Update VIEW!');
         $("#body").empty();
-        var dataModel;
-        var selectedId;
-      
-        $.getJSON(server+"/project",
+        $.getJSON(server + "/project",
             function (data, textStatus, jqXHR) {
-               
-                
+
+
                 dataModel = data;
                 var i = 0;
                 data.forEach(element => {
@@ -109,10 +113,15 @@
                     console.log('DELETE id=' + $(this).attr('key'));
                     $.ajax({
                         type: "DELETE",
-                        url: server+"/project/" + $(this).attr('key'),
-                        dataType: "application/json",
+                        url: server + "/project/" + $(this).attr('key'),
+                        dataType: 'json',
                         success: function (response) {
                             console.log('response: ' + JSON.stringify(response));
+                            updateView();
+                        },
+                        error: function () {
+                            updateView();
+                            console.log("We have an Error!");
                         }
                     });
                 });
@@ -120,19 +129,29 @@
             }
         );
 
+    }
+
+    $(document).ready(function () {
+        updateView();
+
         $("#saveChanges").click(function (e) {
             $('#form').modal('toggle');
             if ($(this).attr("method") == "update") {
-                console.log('Update...');
+                console.log('Update...id=' + selectedId);
                 $.ajax({
                     type: "PUT",
-                    url: server+ "/project/" + selectedId,
+                    url: server + "/project/" + selectedId,
                     data: JSON.stringify({
                         "name": $("#name").val()
                     }),
-                    dataType: "application/json",
+                    dataType: 'json',
                     success: function (response) {
                         console.log('response: ' + JSON.stringify(response));
+                        updateView();
+                    },
+                    error: function () {
+                        updateView();
+                        console.log("We have an Error!");
                     }
                 });
             }
@@ -140,16 +159,22 @@
                 console.log('Insert...');
                 $.ajax({
                     type: "POST",
-                    url: server+ "/project",
+                    url: server + "/project",
                     data: JSON.stringify(
                         {
                             "name": $("#name").val()
                         }
                     ),
-                    dataType: "application/json",
+                    dataType: 'json',
                     success: function (response) {
                         console.log('response: ' + JSON.stringify(response));
+                        updateView();
+                    },
+                    error: function () {
+                        updateView();
+                        console.log("We have an Error!");
                     }
+
                 });
             }
         });

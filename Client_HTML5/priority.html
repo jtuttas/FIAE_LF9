@@ -30,7 +30,7 @@
     <br>
     <div class="row">
         <div class="col-md-12">
-            
+
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -47,7 +47,7 @@
                     </tr>
                 </tbody>
             </table>
-            
+
         </div>
     </div>
     <!-- Modal -->
@@ -87,14 +87,16 @@
     </div>
 </body>
 <script>
-   
-    $(document).ready(function () {
+    var dataModel;
+    var selectedId;
+
+    /**
+    * Update the View and Register event handler für update and delete
+    */
+    function updateView(params) {
         $("#body").empty();
-        var dataModel;
-        var selectedId;
-     
-        $.getJSON(server+"/priority",
-            function (data, textStatus, jqXHR) {                
+        $.getJSON(server + "/priority",
+            function (data, textStatus, jqXHR) {
                 dataModel = data;
                 var i = 0;
                 data.forEach(element => {
@@ -117,16 +119,25 @@
                     console.log('DELETE id=' + $(this).attr('key'));
                     $.ajax({
                         type: "DELETE",
-                        url: server+"/priority/" + $(this).attr('key'),
-                        dataType: "application/json",
+                        url: server + "/priority/" + $(this).attr('key'),
+                        dataType: "json",
                         success: function (response) {
+                            updateView();
                             console.log('response: ' + JSON.stringify(response));
+                        },
+                        error: function () {                            
+                            updateView();
+                            console.log("We have an Error!");
                         }
                     });
                 });
-
             }
         );
+
+    }
+
+    $(document).ready(function () {
+        updateView();
 
         $("#saveChanges").click(function (e) {
             $('#form').modal('toggle');
@@ -134,14 +145,19 @@
                 console.log('Update...');
                 $.ajax({
                     type: "PUT",
-                    url: server+"/priority/" + selectedId,
+                    url: server + "/priority/" + selectedId,
                     data: JSON.stringify({
                         "description": $("#name").val(),
                         "value": $("#value").val()
                     }),
-                    dataType: "application/json",
+                    dataType: "json",
                     success: function (response) {
                         console.log('response: ' + JSON.stringify(response));
+                        updateView();
+                    },
+                    error: function () {
+                        updateView();
+                        console.log("We have an Error!");
                     }
                 });
             }
@@ -149,16 +165,21 @@
                 console.log('Insert...');
                 $.ajax({
                     type: "POST",
-                    url: server+"/priority",
+                    url: server + "/priority",
                     data: JSON.stringify(
                         {
                             "description": $("#name").val(),
                             "value": $("#value").val()
                         }
                     ),
-                    dataType: "application/json",
+                    dataType: "json",
                     success: function (response) {
                         console.log('response: ' + JSON.stringify(response));
+                        updateView();
+                    },
+                    error: function () {
+                        updateView();
+                        console.log("We have an Error!");
                     }
                 });
             }

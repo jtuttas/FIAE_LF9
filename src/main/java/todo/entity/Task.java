@@ -218,6 +218,10 @@ public class Task extends Entity {
                 System.out.println("No date");
                 this.date=null;
             }
+            if (obj.has("id")) {
+                this.setId(obj.getInt("id"));
+    
+            }
         }
         catch (JSONException jx) {
             jx.printStackTrace();
