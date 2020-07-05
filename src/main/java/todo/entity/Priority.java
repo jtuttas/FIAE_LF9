@@ -128,4 +128,9 @@ public class Priority extends Entity {
         }
         return p;
     }
+
+    @Override
+    public String toString() {        
+        return "("+this.priorityValue+") "+this.priorityDescription;
+    }
 }
