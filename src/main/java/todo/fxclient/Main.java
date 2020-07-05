@@ -1,49 +1,47 @@
 package todo.fxclient;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import todo.entity.Priority;
 import todo.entity.Project;
 import todo.entity.Task;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.scene.Parent;
 
-public class Main {
+public class Main extends Application
+{
+	public static void main(String[] args) 
+	{
+		Application.launch(args);
+	}
 
-    public static void main(String[] args) {
-        ToDoClientConnection tdc = new ToDoClientConnection("http://localhost:8000");
-        
-        /*
-        ArrayList<Project> a = tdc.getProjects();
-        Project p = a.get(0);
-        p.setProjectName("Ein neues Project 1");
-        tdc.updateProject(p);
-        Project pn = new Project();
-        pn.setProjectName("Ein Projekt!");
-        tdc.createProject(pn);
-        tdc.deleteProject(p);
-        */
+    @Override
+	public void start(Stage stage) throws IOException
+	{
+		// Create the FXMLLoader 
+		FXMLLoader loader = new FXMLLoader();
+		// Path to the FXML File
+		String fxmlDocPath = "gui.fxml";
+		FileInputStream fxmlStream = new FileInputStream(fxmlDocPath);
 
-        
-        ArrayList<Priority> a = tdc.getPriorities();
-        
-        Priority p = a.get(0);
-        p.setPriorityDescription("Eine aktualisierte Priorität");
-        tdc.updatePriority(p);        
-        Priority pn = new Priority();
-        pn.setPriorityDescription("Eine neue Priorität");
-        pn.setPriorityValue(10);
-        tdc.createPriority(pn);
-        tdc.deletePriority(p);
-        
-        /*
-        ArrayList<Task> t = tdc.getTasks();
-        Task ta = t.get(0);
-        ta.setTitle("Neuer Title");
-        tdc.updateTask(ta);        
-        Task tn = new Task();
-        tn.setTitle("Ein enuer Titelö");
-        tdc.createTask(tn);
-        tdc.deleteTask(ta);
-        */
-    }
-    
+		// Create the Pane and all Details
+		Parent root = (Parent) loader.load(fxmlStream);
+
+		// Create the Scene
+		Scene scene = new Scene(root);
+		// Set the Scene to the Stage
+		stage.setScene(scene);
+		// Set the Title to the Stage
+		stage.setTitle("ToDo");
+		// Display the Stage
+		stage.show();
+	}
+
+   
 }

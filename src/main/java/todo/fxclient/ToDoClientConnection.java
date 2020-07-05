@@ -27,10 +27,10 @@ public class ToDoClientConnection {
         this.server = ip;
     }
 
-    public ArrayList<Project> getProjects() {
-        ArrayList<Project> theList = new ArrayList<Project>();
+    public ArrayList<Entity> getProjects() {
+        ArrayList<Entity> theList = new ArrayList<Entity>();
         System.out.println("Get Projects");
-        getEntity(theList,"/project/",new Project());
+        getEntity(theList,"/project/",new Project());        
         return theList;
     }
 
@@ -49,8 +49,8 @@ public class ToDoClientConnection {
         createEntity(p, "/project/");
     }
 
-    public ArrayList<Priority> getPriorities() {
-        ArrayList<Priority> theList = new ArrayList<Priority>();
+    public ArrayList<Entity> getPriorities() {
+        ArrayList<Entity> theList = new ArrayList<Entity>();
         System.out.println("Get Priorites");
         getEntity(theList,"/priority/",new Priority());
         return theList;
@@ -71,8 +71,8 @@ public class ToDoClientConnection {
         createEntity(p, "/priority/");
     }
 
-    public ArrayList<Task> getTasks() {
-        ArrayList<Task> theList = new ArrayList<Task>();
+    public ArrayList<Entity> getTasks() {
+        ArrayList<Entity> theList = new ArrayList<Entity>();
         System.out.println("Get Tasks");
         getEntity(theList,"/todo/",new Task());
         return theList;
@@ -99,7 +99,7 @@ public class ToDoClientConnection {
      * @param endpoint the Entpoint
      * @param e the Entity
      */
-    private void getEntity(ArrayList theList,String endpoint,Entity e) {
+    private void getEntity(ArrayList<Entity> theList,String endpoint,Entity e) {
         URL obj;
         try {
             obj = new URL(server + endpoint);
@@ -120,13 +120,12 @@ public class ToDoClientConnection {
                 for (int i = 0; i < ja.length(); i++) {
                     JSONObject jo = (JSONObject) ja.get(i);
                     try {
-                        e.parseJSON(jo.toString());
-                        theList.add(e);
+                        theList.add(e.parseJSON(jo.toString()));
                     } catch (MissingParamaterException ex) {
                         ex.printStackTrace();
                     }
-
                 }
+               
             } else {
                 System.out.println("GET request not worked");
             }

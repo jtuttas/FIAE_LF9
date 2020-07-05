@@ -189,19 +189,21 @@ public class Task extends Entity {
      * @throws MissingParamaterException
      */
     @Override
-    public void parseJSON(String json) throws MissingParamaterException {
+    public Task parseJSON(String json) throws MissingParamaterException {
         System.out.print("Parse JSON:"+json);
+        Task t = new Task();
         try {
             JSONObject obj = new JSONObject(json);
             if (obj.has("title")) {
                 this.title=obj.getString("title");
+                t.setTitle(this.title);
                 System.out.println("Set Title to "+this.title);
             }
             else {
                 throw new MissingParamaterException("Parameter required title is missing");
             }
             if (obj.has("proId")) {
-                this.project = new Project();
+                this.project = new Project();                
                 if (!obj.isNull("proId")) {
                     System.out.println("Set proId to "+obj.getInt("proId"));
                     this.project.setId(obj.getInt("proId"));
@@ -211,6 +213,7 @@ public class Task extends Entity {
                 System.out.println("No proId");
                 this.project=null;
             }
+            t.setProject(this.project);
             
             if (obj.has("priId")) {
                 this.priority = new Priority();
@@ -223,6 +226,7 @@ public class Task extends Entity {
                 System.out.println("No priId");
                 this.priority=null;
             }
+            t.setPriority(this.priority);
             
             if (obj.has("date")) {
                 if (!obj.isNull("date")) {
@@ -234,12 +238,15 @@ public class Task extends Entity {
                 System.out.println("No date");
                 this.date=null;
             }
+            t.setDate(this.date);
             if (obj.has("id")) {
                 if (!obj.isNull("id")) {
                     this.setId(obj.getInt("id"));
+                    t.setId(this.getId());
                 }
     
             }
+            return t;
         }
         catch (JSONException jx) {
             jx.printStackTrace();

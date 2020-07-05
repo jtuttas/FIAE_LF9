@@ -103,10 +103,12 @@ public class Priority extends Entity {
      * @throws MissingParamaterException
      */
     @Override
-    public void parseJSON(String json) throws MissingParamaterException {
+    public Priority parseJSON(String json) throws MissingParamaterException {
+        Priority p = new Priority();
         JSONObject obj = new JSONObject(json);
         if (obj.has("value")) {
             this.priorityValue=obj.getInt("value");
+            p.setPriorityValue(this.priorityValue);
             System.out.println("Set Priority to "+this.priorityValue);
         }
         else {
@@ -114,13 +116,16 @@ public class Priority extends Entity {
         }
         if (obj.has("description")) {
             this.priorityDescription=obj.getString("description");
+            p.setPriorityDescription(this.priorityDescription);
             System.out.println("Set Priority Description to "+this.priorityDescription);
         }
         if (obj.has("id")) {
-            if (!obj.isNull("id")) {
+            if (!obj.isNull("id")) {                
                 this.setId(obj.getInt("id"));
+                p.setId(this.getId());
             }
 
         }
+        return p;
     }
 }

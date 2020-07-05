@@ -87,10 +87,12 @@ public class Project extends Entity {
      * @throws Exception
      */
     @Override
-    public void parseJSON(String json) throws MissingParamaterException {
+    public Project parseJSON(String json) throws MissingParamaterException {
+        Project p = new Project();
         JSONObject obj = new JSONObject(json);
         if (obj.has("name")) {
             this.projectName=obj.getString("name");
+            p.setProjectName(this.projectName);
             System.out.println("Set Projektname to "+this.projectName);
         }
         else {
@@ -99,9 +101,16 @@ public class Project extends Entity {
         if (obj.has("id")) {
             if (!obj.isNull("id")){
                 this.setId(obj.getInt("id"));
+                p.setId(this.getId());
             }
 
         }
+        return p;
+    }
+
+    @Override
+    public String toString() {        
+        return this.getProjectName();
     }
     
 }
