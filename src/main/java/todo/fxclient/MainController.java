@@ -3,15 +3,18 @@ package todo.fxclient;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
 
 import javafx.scene.control.Button;
 import todo.entity.Entity;
 import todo.entity.Project;
+import todo.entity.Task;
 import todo.entity.Priority;
 
 import java.util.ArrayList;
-
-
 
 import javafx.event.ActionEvent;
 import javafx.collections.FXCollections;
@@ -41,46 +44,80 @@ public class MainController {
     @FXML
     private Button btnNoPriority;
 
+    @FXML
+    private TableView tableView;
+    @FXML
+    private TableColumn tbColumnProject;
+    @FXML
+    private TableColumn tbColumnPriority;
+    @FXML
+    private TableColumn tbColumnTask;
+    @FXML
+    private TableColumn tbColumnDate;
+
+    @FXML
+    private Button btnUpdateTask;
+    @FXML
+    private Button btnDeleteTask;
+    @FXML
+    private Button btnCreateTask;
+
+
+
     ToDoClientConnection tdc;
     ArrayList<Entity> projectList = new ArrayList<Entity>();
     ArrayList<Entity> priorityList = new ArrayList<Entity>();
+    ArrayList<Entity> taskList = new ArrayList<Entity>();
 
     @FXML
     public void initialize() {
         System.out.println("init ProjectController");
         tdc = new ToDoClientConnection("http://localhost:8000");
+        tbColumnTask.setCellValueFactory(new PropertyValueFactory<>("title"));
+        tbColumnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        tbColumnProject.setCellValueFactory(new PropertyValueFactory<>("project"));
+        tbColumnPriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
         updateProjects();
         updatePriorities();
+        updateTasks();
+    }
+    private void updateTasks() {
+        taskList = tdc.getTasks(projectList,priorityList);
+        tableView.getItems().clear();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task t = (Task) taskList.get(i);
+            tableView.getItems().add(t);
+        }
     }
 
     private void updateProjects() {
         projectList = tdc.getProjects();
         projects.getItems().clear();
-        for (int i=0;i<projectList.size();i++) {
-            Project p =(Project)projectList.get(i);
+        for (int i = 0; i < projectList.size(); i++) {
+            Project p = (Project) projectList.get(i);
             projects.getItems().add(p);
-        }        
+        }
     }
+
     private void updatePriorities() {
         priorityList = tdc.getPriorities();
         priorities.getItems().clear();
-        for (int i=0;i<priorityList.size();i++) {
-            Priority p =(Priority)priorityList.get(i);
+        for (int i = 0; i < priorityList.size(); i++) {
+            Priority p = (Priority) priorityList.get(i);
             priorities.getItems().add(p);
-        }        
+        }
     }
 
     @FXML
-    public void noProject(ActionEvent event)
-    {
+    public void noProject(ActionEvent event) {
         System.out.println("klick! NoProject");
         btnDeleteProject.setDisable(true);
         btnUpdateProject.setDisable(true);
         projects.getSelectionModel().clearSelection();
     }
+
     @FXML
-    public void noPriority(ActionEvent event)
-    {
+    public void noPriority(ActionEvent event) {
         System.out.println("klick! NoPriority");
         btnDeletePriority.setDisable(true);
         btnUpdatePriority.setDisable(true);
@@ -88,8 +125,7 @@ public class MainController {
     }
 
     @FXML
-    public void addProject(ActionEvent event)
-    {
+    public void addProject(ActionEvent event) {
         System.out.println("klick! AddProject");
         Project p = new Project();
         p.setProjectName(tfProjectName.getText());
@@ -101,8 +137,7 @@ public class MainController {
     }
 
     @FXML
-    public void addPriority(ActionEvent event)
-    {
+    public void addPriority(ActionEvent event) {
         System.out.println("klick! AddPriority");
         Priority p = new Priority();
         p.setPriorityDescription(tfPriorityDescription.getText());
@@ -115,42 +150,37 @@ public class MainController {
         btnUpdatePriority.setDisable(true);
     }
 
-    
     @FXML
-    public void deleteProject(ActionEvent event)
-    {
+    public void deleteProject(ActionEvent event) {
         System.out.println("klick! DeleteProject");
         projects.getItems().remove(projects.getSelectionModel().getSelectedIndex());
         tfProjectName.setText("");
-        tdc.deleteProject((Project)projects.getSelectionModel().getSelectedItem());
+        tdc.deleteProject((Project) projects.getSelectionModel().getSelectedItem());
     }
 
     @FXML
-    public void deletePriority(ActionEvent event)
-    {
+    public void deletePriority(ActionEvent event) {
         System.out.println("klick! DeletePriority");
         priorities.getItems().remove(priorities.getSelectionModel().getSelectedIndex());
         tfPriorityDescription.setText("");
         tfPriorityValue.setText("");
-        tdc.deletePriority((Priority)priorities.getSelectionModel().getSelectedItem());
+        tdc.deletePriority((Priority) priorities.getSelectionModel().getSelectedItem());
     }
 
-
     @FXML
-    public void updateProject(ActionEvent event)
-    {
+    public void updateProject(ActionEvent event) {
         System.out.println("klick! UpdateProject");
-        Project p = (Project)projects.getSelectionModel().getSelectedItem();
+        Project p = (Project) projects.getSelectionModel().getSelectedItem();
         int i = projects.getSelectionModel().getSelectedIndex();
         p.setProjectName(tfProjectName.getText());
         projects.getItems().set(i, p);
         tdc.updateProject(p);
     }
+
     @FXML
-    public void updatePriority(ActionEvent event)
-    {
+    public void updatePriority(ActionEvent event) {
         System.out.println("klick! UpdatePriority");
-        Priority p = (Priority)priorities.getSelectionModel().getSelectedItem();
+        Priority p = (Priority) priorities.getSelectionModel().getSelectedItem();
         int i = priorities.getSelectionModel().getSelectedIndex();
         p.setPriorityDescription(tfPriorityDescription.getText());
         p.setPriorityValue(Integer.parseInt(tfPriorityValue.getText()));
@@ -159,10 +189,9 @@ public class MainController {
     }
 
     @FXML
-    public void selectProject(ActionEvent event)
-    {
-        if (projects.getSelectionModel().getSelectedItem()!=null) {
-            System.out.println("klick! SelectProject"+projects.getSelectionModel().getSelectedItem().toString());        
+    public void selectProject(ActionEvent event) {
+        if (projects.getSelectionModel().getSelectedItem() != null) {
+            System.out.println("klick! SelectProject" + projects.getSelectionModel().getSelectedItem().toString());
             tfProjectName.setText(projects.getSelectionModel().getSelectedItem().toString());
             btnDeleteProject.setDisable(false);
             btnUpdateProject.setDisable(false);
@@ -170,16 +199,36 @@ public class MainController {
     }
 
     @FXML
-    public void selectPriority(ActionEvent event)
-    {
-        if (priorities.getSelectionModel().getSelectedItem()!=null) {
-            System.out.println("klick! SelectPriority"+priorities.getSelectionModel().getSelectedItem().toString());        
-            Priority p = (Priority)priorities.getSelectionModel().getSelectedItem();
+    public void selectPriority(ActionEvent event) {
+        if (priorities.getSelectionModel().getSelectedItem() != null) {
+            System.out.println("klick! SelectPriority" + priorities.getSelectionModel().getSelectedItem().toString());
+            Priority p = (Priority) priorities.getSelectionModel().getSelectedItem();
             tfPriorityDescription.setText(p.getPriorityDescription());
-            tfPriorityValue.setText(""+p.getPriorityValue());
+            tfPriorityValue.setText("" + p.getPriorityValue());
             btnDeletePriority.setDisable(false);
             btnUpdatePriority.setDisable(false);
         }
     }
+
+    @FXML
+    public void taskSelected(MouseEvent me) {
+        System.out.println("Task seleted");
+        System.out.println("Task seleted:"+tableView.getSelectionModel().getSelectedItem());
+    }
+
+    @FXML
+    public void deleteTask(ActionEvent event) {
+        System.out.println("delete Task");
+    }
+    @FXML
+    public void updateTask(ActionEvent event) {
+        System.out.println("update Task");
+    }
+    @FXML
+    public void createTask(ActionEvent event) {
+        System.out.println("create Task");
+
+    }
+
 
 }

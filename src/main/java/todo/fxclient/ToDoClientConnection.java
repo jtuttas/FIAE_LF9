@@ -30,7 +30,7 @@ public class ToDoClientConnection {
     public ArrayList<Entity> getProjects() {
         ArrayList<Entity> theList = new ArrayList<Entity>();
         System.out.println("Get Projects");
-        getEntity(theList,"/project/",new Project());        
+        getEntity(theList, "/project/", new Project());
         return theList;
     }
 
@@ -52,7 +52,7 @@ public class ToDoClientConnection {
     public ArrayList<Entity> getPriorities() {
         ArrayList<Entity> theList = new ArrayList<Entity>();
         System.out.println("Get Priorites");
-        getEntity(theList,"/priority/",new Priority());
+        getEntity(theList, "/priority/", new Priority());
         return theList;
     }
 
@@ -74,8 +74,44 @@ public class ToDoClientConnection {
     public ArrayList<Entity> getTasks() {
         ArrayList<Entity> theList = new ArrayList<Entity>();
         System.out.println("Get Tasks");
-        getEntity(theList,"/todo/",new Task());
+        getEntity(theList, "/todo/", new Task());
         return theList;
+    }
+
+    public ArrayList<Entity> getTasks(ArrayList<Entity> pl, ArrayList<Entity> pri) {
+        ArrayList<Entity> theList = new ArrayList<Entity>();
+        System.out.println("Get Tasks");
+        getEntity(theList, "/todo/", new Task());
+        for (int i = 0; i < theList.size(); i++) {
+            Task t = (Task) theList.get(i);
+            if (t.getProject()!=null) {
+                t.setProject(getProject(pl, t.getProject().getId()));
+            }
+            if (t.getPriority()!=null) {
+                t.setPriority(getPriority(pri, t.getPriority().getId()));
+            }
+        }
+        return theList;
+    }
+
+    private Project getProject(ArrayList<Entity> pa,int id) {
+        for (int i=0;i<pa.size();i++) {
+            Project p = (Project)pa.get(i);
+            if (p.getId()==id) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    private Priority getPriority(ArrayList<Entity> pa, int id) {
+        for (int i=0;i<pa.size();i++) {
+            Priority p = (Priority)pa.get(i);
+            if (p.getId()==id) {
+                return p;
+            }
+        }
+        return null;
     }
 
     public void updateTask(Task p) {
@@ -95,11 +131,12 @@ public class ToDoClientConnection {
 
     /**
      * Insert the Entities (call by reference) in the list for the given Endpoint
-     * @param theList the List of Entities
+     * 
+     * @param theList  the List of Entities
      * @param endpoint the Entpoint
-     * @param e the Entity
+     * @param e        the Entity
      */
-    private void getEntity(ArrayList<Entity> theList,String endpoint,Entity e) {
+    private void getEntity(ArrayList<Entity> theList, String endpoint, Entity e) {
         URL obj;
         try {
             obj = new URL(server + endpoint);
@@ -125,7 +162,7 @@ public class ToDoClientConnection {
                         ex.printStackTrace();
                     }
                 }
-               
+
             } else {
                 System.out.println("GET request not worked");
             }
@@ -137,7 +174,7 @@ public class ToDoClientConnection {
     private void updateEntity(Entity e, String endPoint) {
         URL obj;
         try {
-            obj = new URL(server + endPoint+ e.getId());
+            obj = new URL(server + endPoint + e.getId());
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setDoOutput(true);
             con.setRequestMethod("PUT");

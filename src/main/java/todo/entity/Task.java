@@ -257,4 +257,10 @@ public class Task extends Entity {
 
     }
 
+
+    @Override
+    public String toString() {        
+        return ""+this.title+" "+this.date;
+    }
+
 }
