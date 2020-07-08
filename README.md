@@ -4,7 +4,7 @@ Eine ToDo Liste als REST API für das LF8 LF9 im LF10a. Im 3. AJ hierzu eine GUI
 Die API wird dokumentiert mittels des *Open API* Standards (ehemals SWAGGER). Die API Dokumentation ist hier zu finden: [swaggerhub](https://app.swaggerhub.com/apis-docs/jtuttas/Todo/1.0.2#/task/get_todo)
 
 ## Lastenheft
-Sie erhalten Sie Aufgabe für die EasyJob GmbH eine ToDo Liste zu entwickeln. Die ToDoListe sollte er ermöglichen Aufgaben (Todo's) Projekten zuzuordnen und diese mit Prioritäten zu versehen.
+Sie erhalten Sie Aufgabe für die EasyJob GmbH eine ToDo Liste zu entwickeln. Die ToDoListe sollte er ermöglichen Aufgaben (Todo's) Projekten zuzuordnen und diese mit Prioritäten zu versehen. Die Daten sollen dabei über verschiedene Endgeräte gepflegt werden können.
 
 Von der Firma erhalten Sie folgende Excel Tabelle, wie diese bisher die Aufgaben verwaltet hat.
 
@@ -16,11 +16,14 @@ Das Produkt soll über eine *CI/CD* als *Docker Container* ausgeliefert werden u
 ### LF8: Daten systemübergreifend bereitstellen
 **Die Schülerinnen und Schüler besitzen die Kompetenz, Daten aus dezentralen Quellen zusammenzuführen, aufzubereiten und zur weiteren Nutzung zur Verfügung zu stellen**.
 
-Die Schülerinnen und Schüler ermitteln für einen Kundenauftrag Datenquellen und *analysieren* diese hinsichtlich ihrer Struktur, rechtlicher Rahmenbedingungen, Zugriffsmöglichkeiten und -mechanismen.
+Die Schülerinnen und Schüler ermitteln für einen Kundenauftrag **Datenquellen** und **analysieren diese hinsichtlich ihrer Struktur**, rechtlicher Rahmenbedingungen, Zugriffsmöglichkeiten und -mechanismen.
+
 Sie *wählen* die Datenquellen (heterogen) für den Kundenauftrag aus.
 Sie entwickeln Konzepte zur Bereitstellung der gewählten Datenquellen für die weitere Verarbeitung unter Beachtung der Informationssicherheit.
+
 Die Schülerinnen und Schüler *implementieren* arbeitsteilig, auch ortsunabhängig, ihr Konzept mit vorhandenen sowie dazu passenden Entwicklungswerkzeugen und Produkten.
 Sie *übergeben* ihr Endprodukt mit Dokumentation zur Handhabung, auch in fremder Sprache, an die Kunden.
+
 Sie *reflektieren* die Eignung der eingesetzten Entwicklungswerkzeuge hinsichtlich des arbeitsteiligen Entwicklungsprozesses und die Qualität der Dokumentation.
 
 #### Datenbankentwurf
