@@ -2,7 +2,6 @@ package todo.entity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.MissingFormatArgumentException;
 
 import org.json.JSONObject;
 

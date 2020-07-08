@@ -1,9 +1,7 @@
 package todo.entity;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Set;
 
 import org.json.JSONException;
 import org.json.JSONObject;

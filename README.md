@@ -67,12 +67,15 @@ Die Schülerinnen und Schüler *beurteilen* die Netzwerke sowie deren Infrastruk
 Sie *reflektieren* ihre Lösung unter Berücksichtigung der Kundenzufriedenheit, Zukunftsfähigkeit und Vorgehensweise.
 
 #### Cloud Computing
+- OpenAPI (Swagger) Dokumentation
 - CI/CD (LF9)
 - HTTP Methoden und REST-API (LF9)
 - VMs (LF9)
 - Portfreigaben / Firewall (LF9)
 - Docker (LF9)
 - Build Tools MAVEN (LF9)
+
+![Swagger](./Doku/swagger.png)
 
 ### LF10a: Benutzerschnittstellen gestalten und entwickeln
 **Die Schülerinnen und Schüler verfügen über die Kompetenz, Benutzeroberflächen für softwarebasierte Arbeitsabläufe und Geschäftsprozesse zu gestalten und zu entwickeln.**
@@ -86,7 +89,12 @@ diese den Entwicklungskosten gegenüber.
 
 #### GUI Design
 - HTML5 (LF10a)
+- JavaFX Client (LF10a)
 - Android App (Lf10a)
+
+![htmlClient](./Doku/html5Client.png)
+
+![htmlClient](./Doku/javafxClient.png)
 
 ### LF11a: Funktionalität in Anwendungen realisieren
 **Die Schülerinnen und Schüler verfügen über die Kompetenz, modulare Komponenten zur informationstechnischen Verarbeitung von Arbeitsabläufen und Geschäftsprozessen zu entwickeln und deren Qualität zu sichern.**

@@ -17,11 +17,10 @@ import todo.entity.Priority;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
-import javafx.collections.FXCollections;
 
 public class MainController {
     @FXML
-    private ComboBox projects;
+    private ComboBox<Project> projects;
     @FXML
     private TextField tfProjectName;
     @FXML
@@ -32,7 +31,7 @@ public class MainController {
     private Button btnNoProject;
 
     @FXML
-    private ComboBox priorities;
+    private ComboBox<Priority> priorities;
     @FXML
     private TextField tfPriorityDescription;
     @FXML
@@ -45,15 +44,15 @@ public class MainController {
     private Button btnNoPriority;
 
     @FXML
-    private TableView tableView;
+    private TableView<Task> tableView;
     @FXML
-    private TableColumn tbColumnProject;
+    private TableColumn<Task, String> tbColumnProject;
     @FXML
-    private TableColumn tbColumnPriority;
+    private TableColumn<Task, String> tbColumnPriority;
     @FXML
-    private TableColumn tbColumnTask;
+    private TableColumn<Task, String> tbColumnTask;
     @FXML
-    private TableColumn tbColumnDate;
+    private TableColumn<Task, String> tbColumnDate;
 
     @FXML
     private Button btnUpdateTask;

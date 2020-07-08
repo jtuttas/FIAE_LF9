@@ -2,13 +2,11 @@ package todo;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
-import java.util.concurrent.RecursiveAction;
+
 
 import com.sun.net.httpserver.*;
 import todo.entity.Entity;
