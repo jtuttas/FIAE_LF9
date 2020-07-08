@@ -83,8 +83,9 @@ public class MainController {
         updatePriorities();
         updateTasks();
     }
+
     private void updateTasks() {
-        taskList = tdc.getTasks(projectList,priorityList);
+        taskList = tdc.getTasks(projectList, priorityList);
         tableView.getItems().clear();
         for (int i = 0; i < taskList.size(); i++) {
             Task t = (Task) taskList.get(i);
@@ -155,18 +156,20 @@ public class MainController {
     @FXML
     public void deleteProject(ActionEvent event) {
         System.out.println("klick! DeleteProject");
-        projects.getItems().remove(projects.getSelectionModel().getSelectedIndex());
         tfProjectName.setText("");
         tdc.deleteProject((Project) projects.getSelectionModel().getSelectedItem());
+        projects.getItems().remove(projects.getSelectionModel().getSelectedIndex());
+        this.updateTasks();
     }
 
     @FXML
     public void deletePriority(ActionEvent event) {
         System.out.println("klick! DeletePriority");
-        priorities.getItems().remove(priorities.getSelectionModel().getSelectedIndex());
         tfPriorityDescription.setText("");
         tfPriorityValue.setText("");
         tdc.deletePriority((Priority) priorities.getSelectionModel().getSelectedItem());
+        priorities.getItems().remove(priorities.getSelectionModel().getSelectedIndex());
+        this.updateTasks();
     }
 
     @FXML
@@ -177,6 +180,7 @@ public class MainController {
         p.setProjectName(tfProjectName.getText());
         projects.getItems().set(i, p);
         tdc.updateProject(p);
+        this.updateTasks();
     }
 
     @FXML
@@ -188,6 +192,7 @@ public class MainController {
         p.setPriorityValue(Integer.parseInt(tfPriorityValue.getText()));
         priorities.getItems().set(i, p);
         tdc.updatePriority(p);
+        this.updateTasks();
     }
 
     @FXML
@@ -214,39 +219,39 @@ public class MainController {
 
     @FXML
     public void taskSelected(MouseEvent me) {
-        Task t = (Task)tableView.getSelectionModel().getSelectedItem();
-        System.out.println("Task seleted:"+tableView.getSelectionModel().getSelectedItem());
-        tfTitle.setText(t.getTitle());
-        if (t.getDate()!=null) {
-            tfDate.setText(t.getDate());
+        if (tableView.getSelectionModel().getSelectedItem() != null) {
+            Task t = (Task) tableView.getSelectionModel().getSelectedItem();
+            System.out.println("Task seleted:" + tableView.getSelectionModel().getSelectedItem());
+            tfTitle.setText(t.getTitle());
+            if (t.getDate() != null) {
+                tfDate.setText(t.getDate());
+            }
+            if (t.getProject() != null) {
+                projects.getSelectionModel().select(t.getProject());
+            } else {
+                projects.getSelectionModel().clearSelection();
+                tfProjectName.setText("");
+                btnDeleteProject.setDisable(true);
+                btnUpdateProject.setDisable(true);
+            }
+            if (t.getPriority() != null) {
+                priorities.getSelectionModel().select(t.getPriority());
+            } else {
+                priorities.getSelectionModel().clearSelection();
+                tfPriorityDescription.setText("");
+                tfPriorityValue.setText("");
+                btnDeletePriority.setDisable(true);
+                btnUpdatePriority.setDisable(true);
+            }
+            btnDeleteTask.setDisable(false);
+            btnUpdateTask.setDisable(false);
         }
-        if (t.getProject()!=null) {
-            projects.getSelectionModel().select(t.getProject());
-        }
-        else {
-            projects.getSelectionModel().clearSelection();
-            tfProjectName.setText("");
-            btnDeleteProject.setDisable(true);
-            btnUpdateProject.setDisable(true);
-        }
-        if (t.getPriority()!=null) {
-            priorities.getSelectionModel().select(t.getPriority());
-        }
-        else {
-            priorities.getSelectionModel().clearSelection();
-            tfPriorityDescription.setText("");
-            tfPriorityValue.setText("");
-            btnDeletePriority.setDisable(true);
-            btnUpdatePriority.setDisable(true);
-        }
-        btnDeleteTask.setDisable(false);
-        btnUpdateTask.setDisable(false);
     }
 
     @FXML
     public void deleteTask(ActionEvent event) {
         System.out.println("delete Task");
-        tdc.deleteTask((Task)tableView.getSelectionModel().getSelectedItem());
+        tdc.deleteTask((Task) tableView.getSelectionModel().getSelectedItem());
         tfTitle.setText("");
         tfDate.setText("");
         tableView.getItems().remove(tableView.getSelectionModel().getSelectedItem());
@@ -263,10 +268,21 @@ public class MainController {
         btnDeleteTask.setDisable(true);
 
     }
+
     @FXML
     public void updateTask(ActionEvent event) {
         System.out.println("update Task");
+        Task t = (Task) tableView.getSelectionModel().getSelectedItem();
+        t.setTitle(tfTitle.getText());
+        t.setDate(tfDate.getText());
+        t.setPriority((Priority) priorities.getSelectionModel().getSelectedItem());
+        t.setProject((Project) projects.getSelectionModel().getSelectedItem());
+        tdc.updateTask(t);
+        int index = tableView.getSelectionModel().getSelectedIndex();
+        tableView.getItems().set(index, tableView.getSelectionModel().getSelectedItem());
+
     }
+
     @FXML
     public void createTask(ActionEvent event) {
         System.out.println("create Task");
@@ -275,13 +291,12 @@ public class MainController {
         if (!tfDate.getText().equals("")) {
             t.setDate(tfDate.getText());
         }
-        t.setPriority((Priority)priorities.getSelectionModel().getSelectedItem());
-        t.setProject((Project)projects.getSelectionModel().getSelectedItem());
+        t.setPriority((Priority) priorities.getSelectionModel().getSelectedItem());
+        t.setProject((Project) projects.getSelectionModel().getSelectedItem());
         tdc.createTask(t);
         tfDate.setText("");
         tfTitle.setText("");
         updateTasks();
     }
-
 
 }
