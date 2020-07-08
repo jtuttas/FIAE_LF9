@@ -2,15 +2,13 @@ package todo.fxclient;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import todo.entity.Priority;
-import todo.entity.Project;
-import todo.entity.Task;
+
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
+
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 

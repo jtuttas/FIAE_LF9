@@ -246,6 +246,7 @@ public class ToDoClientConnection {
             con.setRequestProperty("Content-Type", "application/json");
             OutputStream os = con.getOutputStream();
             OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+            System.out.println("POST: "+e.toJSON());
             osw.write(e.toJSON());
             osw.flush();
             osw.close();

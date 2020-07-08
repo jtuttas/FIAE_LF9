@@ -123,7 +123,7 @@ public class Task extends Entity {
         }
         if (this.date != null) {
             sql1 = sql1 + ",date";
-            sql2 = sql2 + "," + this.date;
+            sql2 = sql2 + ",\"" + this.date+"\"";
         }
         return sql1 + sql2 + ")";
     }
