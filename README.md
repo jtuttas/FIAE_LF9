@@ -1,7 +1,9 @@
 # ToDo Liste
 Eine ToDo Liste als REST API für das LF8 LF9 im LF10a. Im 3. AJ hierzu eine GUI entwickelt. Als Datenbank dient eine *SQLite* Datenbank.
 
-Die API wird dokumentiert mittels des *Open API* Standards (ehemals SWAGGER). Die API Dokumentation ist hier zu finden: [swaggerhub](https://app.swaggerhub.com/apis-docs/jtuttas/Todo/1.0.2#/task/get_todo)
+Die API wird dokumentiert mittels des *Open API* Standards (ehemals SWAGGER). Die API Dokumentation ist hier zu finden: [swaggerhub](https://app.swaggerhub.com/apis-docs/jtuttas/Todo/1.0.2#/task/get_todo).
+
+[![Video1](http://img.youtube.com/vi/68GRnO7CqU0/0.jpg)](http://www.youtube.com/watch?v=68GRnO7CqU0)
 
 ## Lastenheft
 Sie erhalten Sie Aufgabe für die EasyJob GmbH eine ToDo Liste zu entwickeln. Die ToDoListe sollte er ermöglichen Aufgaben (Todo's) Projekten zuzuordnen und diese mit Prioritäten zu versehen. Die Daten sollen dabei über verschiedene Endgeräte gepflegt werden können.
@@ -38,6 +40,8 @@ Sie *reflektieren* die Eignung der eingesetzten Entwicklungswerkzeuge hinsichtli
     - Primär / Fremdschlüssel (LF8)
     - Integritätsbedingungen (LF8)
 
+![ERDiagramm](Doku/ErDiagramm.png   )
+
 #### Datenbankabfragen
 - DML (CRUD) (LF8)
     - INSERT (LF8)
@@ -59,13 +63,21 @@ Sie *reflektieren* die Eignung der eingesetzten Entwicklungswerkzeuge hinsichtli
 #### UML
 - Klassendiagramm (LF8)
 
+![UMLKlassendiagarmm](Doku/Klassendiagramm.png)
+
 ### LF9: Netzwerke und Dienste bereitstellen
 **Die Schülerinnen und Schüler verfügen über die Kompetenz, Netzwerke und Dienste zu planen, zu konfigurieren und zu erweitern.**
 
-Die Schülerinnen und Schüler ermitteln die Anforderungen an ein Netzwerk in Kommunikation mit den Kunden. Sie *informieren* sich über Eigenschaften, Funktionen und Leistungsmerkmale der Netzwerkkomponenten und Dienste nach Kundenanforderung, auch unter Berücksichtigung sicherheitsrelevanter Merkmale. Dabei wenden sie Recherchemethoden an und werten auch fremdsprachliche Quellen aus.
+Die Schülerinnen und Schüler ermitteln die Anforderungen an ein Netzwerk in Kommunikation mit den Kunden. Sie *informieren* sich über Eigenschaften, Funktionen und Leistungsmerkmale der Netzwerkkomponenten und Dienste nach Kundenanforderung, auch unter Berücksichtigung sicherheitsrelevanter Merkmale. 
+
+Dabei wenden sie Recherchemethoden an und werten auch fremdsprachliche Quellen aus.
+
 Sie *planen* die erforderlichen Dienste und dafür notwendige Netzwerke sowie deren Infrastruktur unter Berücksichtigung interner und externer Ressourcen.
+
 Dazu *vergleichen* sie Konzepte hinsichtlich ihrer Nachhaltigkeit sowie der technischen und wirtschaftlichen Eignung.
+
 Sie *installieren* und konfigurieren Netzwerke sowie deren Infrastruktur und implementieren Dienste. Sie gewährleisten die Einhaltung von Standards, führen Funktionsprüfungen sowie Messungen durch und erstellen eine Dokumentation.
+
 Die Schülerinnen und Schüler *beurteilen* die Netzwerke sowie deren Infrastruktur und die Dienste hinsichtlich der gestellten Anforderungen, Datensicherheit und Datenschutz.
 Sie *reflektieren* ihre Lösung unter Berücksichtigung der Kundenzufriedenheit, Zukunftsfähigkeit und Vorgehensweise.
 
@@ -73,7 +85,7 @@ Sie *reflektieren* ihre Lösung unter Berücksichtigung der Kundenzufriedenheit,
 - OpenAPI (Swagger) Dokumentation
 - CI/CD (LF9)
 - HTTP Methoden und REST-API (LF9)
-- VMs (LF9)
+- Cloud VMs (LF9)
 - Portfreigaben / Firewall (LF9)
 - Docker (LF9)
 - Build Tools MAVEN (LF9)
@@ -82,11 +94,17 @@ Sie *reflektieren* ihre Lösung unter Berücksichtigung der Kundenzufriedenheit,
 
 ### LF10a: Benutzerschnittstellen gestalten und entwickeln
 **Die Schülerinnen und Schüler verfügen über die Kompetenz, Benutzeroberflächen für softwarebasierte Arbeitsabläufe und Geschäftsprozesse zu gestalten und zu entwickeln.**
+
 Die Schülerinnen und Schüler *informieren* sich über die vorhandenen betrieblichen Abläufe und Geschäftsprozesse.
+
 Sie *stellen* diese modellhaft *dar* und leiten Optimierungsmöglichkeiten ab.
+
 Sie *gestalten* und *entwickeln* mit agilen Methoden die Benutzeroberflächen für unterschiedliche Endgeräte und Betriebssysteme und stellen die vollständige Abbildung des Informationsflusses unter Berücksichtigung der Prozessbeschreibung sicher.
+
 Die Schülerinnen und Schüler *stellen* die Funktionalität der Softwarelösung *her* und nutzen hierzu bereits vorhandene Bibliotheken und Module.
+
 Sie *überprüfen* das Produkt auf Datenschutzkonformität und Benutzerfreundlichkeit.
+
 Die Schülerinnen und Schüler *testen* die funktionale Richtigkeit. Sie quantifizieren die Reduktion der Prozesskosten des digitalisierten, optimierten Geschäftsprozesses und stellen
 diese den Entwicklungskosten gegenüber.
 
@@ -100,12 +118,20 @@ diese den Entwicklungskosten gegenüber.
 ![htmlClient](./Doku/javafxClient.png)
 
 ### LF11a: Funktionalität in Anwendungen realisieren
+
 **Die Schülerinnen und Schüler verfügen über die Kompetenz, modulare Komponenten zur informationstechnischen Verarbeitung von Arbeitsabläufen und Geschäftsprozessen zu entwickeln und deren Qualität zu sichern.**
 
 Die Schülerinnen und Schüler *leiten* aus den Informationsobjekten der vorgegebenen Prozessbeschreibungen der Kunden die dazu notwendigen Datenstrukturen und Funktionalitäten ab.
+
+
 Sie *planen* modulare Softwarekomponenten und beschreiben deren Funktionsweise mit Diagrammen und Modellen.
+
 Sie *wählen* eine Methode zur Softwareentwicklung *aus*. Dabei beachten sie, dass Planung, Realisierung und Tests iterativ in Abstimmung mit den Kunden erfolgen.
+
+
 Die Schülerinnen und Schüler *realisieren*, auch im Team, die Softwarekomponenten und binden diese an Datenquellen an. Sie dokumentieren die Schnittstellen.
+
+
 Sie *testen* die erforderliche Funktionalität, indem sie Testfälle formulieren und automatisierte Testverfahren anwenden.
 Die Schülerinnen und Schüler *beurteilen* die Funktionalität anhand festgelegter Kriterien
 der Kunden und leiten Maßnahmen zur Überarbeitung der erstellten Module ein.
