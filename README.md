@@ -40,7 +40,7 @@ Sie *reflektieren* die Eignung der eingesetzten Entwicklungswerkzeuge hinsichtli
     - Primär / Fremdschlüssel (LF8)
     - Integritätsbedingungen (LF8)
 
-![ERDiagramm](Doku/ErDiagramm.png   )
+![ERDiagramm](Doku/ERDiagramm.png   )
 
 #### Datenbankabfragen
 - DML (CRUD) (LF8)
