@@ -61,7 +61,7 @@ public class Server {
         @Override
         public void handle(HttpExchange t) throws IOException {
             t.getResponseHeaders().add("Content-Type", "Application/JSON");
-            String response = "{\"version\":1.1}";
+            String response = "{\"version\":1.2}";
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
