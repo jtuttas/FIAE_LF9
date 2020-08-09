@@ -21,10 +21,12 @@ public final class App {
             Server s = new Server(8000);
             s.addRoute("/project", new MyHttpHandler(DBManager.getInstance("todo.db"),new Project()));
             s.addRoute("/priority", new MyHttpHandler(DBManager.getInstance("todo.db"),new Priority()));
-            s.addRoute("/todo", new MyHttpHandler(DBManager.getInstance("todo.db"),new Task()));
+            s.addRoute("/todo", new MyHttpHandler(DBManager.getInstance("todo.db"),new Task()));            
             s.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
 }

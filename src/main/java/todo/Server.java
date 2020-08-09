@@ -1,6 +1,7 @@
 package todo;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
 
@@ -26,6 +27,7 @@ public class Server {
     public Server(int port) throws IOException {
         this.port = port;
         server = HttpServer.create(new InetSocketAddress(port), 0);
+        server.createContext("/",new MyHandler());
         server.setExecutor(null); // creates a default executor
     }
 
@@ -54,6 +56,19 @@ public class Server {
     public void addRoute(String r, MyHttpHandler h) {
         server.createContext(r, h);
     }
+
+    static class MyHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange t) throws IOException {
+            t.getResponseHeaders().add("Content-Type", "Application/JSON");
+            String response = "{\"version\":1.0}";
+            t.sendResponseHeaders(200, response.length());
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        }
+    }
+
 
     
     
