@@ -123,9 +123,9 @@ diese den Entwicklungskosten gegenüber.
     "type": "java",
     "name": "JavaFX Client",
     "request": "launch",
-    "vmArgs": "--module-path c:\\Users\\jtutt\\ownCloud\\bin\\javafx-sdk-11.0.2\\lib --add-modules javafx.controls,javafx.fxml",
+    "vmArgs": "--module-path ${workspaceFolder}\\lib\\javafx-sdk-11.0.2\\lib --add-modules javafx.controls,javafx.fxml",
     "mainClass": "todo.fxclient.Main",
-    "projectName": "todo"
+    "projectName": "todo" 
 },
 ```
 
