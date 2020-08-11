@@ -116,6 +116,18 @@ diese den Entwicklungskosten gegenüber.
 ![htmlClient](./Doku/html5Client.png)
 
 ![htmlClient](./Doku/javafxClient.png)
+*ACHTUNG*: Ab Java11 (Open JDK) ist JavaFX nicht mehr enthalten. Das JDK muss nachinstalliert [Link](https://gluonhq.com/products/javafx/) werden und die VMArgs beim Starten richtig gesetzt werden. Wie in Launch.json !
+
+```
+{
+    "type": "java",
+    "name": "JavaFX Client",
+    "request": "launch",
+    "vmArgs": "--module-path c:\\Users\\jtutt\\ownCloud\\bin\\javafx-sdk-11.0.2\\lib --add-modules javafx.controls,javafx.fxml",
+    "mainClass": "todo.fxclient.Main",
+    "projectName": "todo"
+},
+```
 
 ### LF11a: Funktionalität in Anwendungen realisieren
 
