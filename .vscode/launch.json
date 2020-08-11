@@ -6,8 +6,9 @@
     "configurations": [
         {
             "type": "java",
-            "name": "CodeLens (Launch) - Main",
+            "name": "JavaFX Client",
             "request": "launch",
+            "vmArgs": "--module-path c:\\Users\\jtutt\\ownCloud\\bin\\javafx-sdk-11.0.2\\lib --add-modules javafx.controls,javafx.fxml",
             "mainClass": "todo.fxclient.Main",
             "projectName": "todo"
         },
@@ -19,7 +20,7 @@
         },
         {
             "type": "java",
-            "name": "Debug (Launch)-App<todo>",
+            "name": "ToDo Server",
             "request": "launch",
             "mainClass": "todo.App",
             "projectName": "todo"
