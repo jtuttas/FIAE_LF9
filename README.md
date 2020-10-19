@@ -6,7 +6,7 @@ Die API wird dokumentiert mittels des *Open API* Standards (ehemals SWAGGER). Di
 [![Video1](http://img.youtube.com/vi/68GRnO7CqU0/0.jpg)](http://www.youtube.com/watch?v=68GRnO7CqU0)
 
 ## Lastenheft
-Sie erhalten Sie Aufgabe für die EasyJob GmbH eine ToDo Liste zu entwickeln. Die ToDoListe sollte er ermöglichen Aufgaben (Todo's) Projekten zuzuordnen und diese mit Prioritäten zu versehen. Die Daten sollen dabei über verschiedene Endgeräte gepflegt werden können.
+Sie erhalten Sie Aufgabe für die EasyJob GmbH eine Aufgabenverwaltung (ToDo) zu entwickeln. Die Anwednung sollte er ermöglichen Mitarbeitern diverse Aufgaben (Todo's) zuzuordnen und diese mit Prioritäten zu versehen. Die Daten sollen dabei über verschiedene Endgeräte gepflegt werden können.
 
 Von der Firma erhalten Sie folgende Excel Tabelle, wie diese bisher die Aufgaben verwaltet hat.
 
