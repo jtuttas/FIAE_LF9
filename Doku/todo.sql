@@ -34,14 +34,24 @@ INSERT INTO `bearbeitet` (`eid`, `tid`, `ansprechpartner`) VALUES
 CREATE TABLE IF NOT EXISTS `customer` (
   `projid` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(80) NOT NULL DEFAULT '0',
+  `Str` varchar(80) NOT NULL DEFAULT '0',
+  `Hausnummer` varchar(6) NOT NULL DEFAULT '0',
+  `PLZ` char(6) NOT NULL DEFAULT '0',
+  `Ort` varchar(80) NOT NULL DEFAULT '0',
+  `trustlevel` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`projid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 DELETE FROM `customer`;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` (`projid`, `name`) VALUES
-	(1, 'JOBE GmbH'),
-	(2, 'Schulte OHG');
+INSERT INTO `customer` (`projid`, `name`, `Str`, `Hausnummer`, `PLZ`, `Ort`, `trustlevel`) VALUES
+	(1, 'JOBE GmbH', 'Hauptstraße', '2', '30539', 'Hannover', 1),
+	(2, 'Schulte OHG', 'Nebenstraße', '15b', '31134', 'Hildesheim', 0.8),
+	(3, 'Neo AG', 'Lissabonner Alle', '12', '30539', 'Hannover', 1),
+	(4, 'Matrix Solution GmbH', 'Eilenriede', '5b', '30236', 'Hannover', 0.9),
+	(5, 'DF Fenster KG', 'Limmerstraße', '22', '30532', 'Hannover', 0.7),
+	(6, 'KFZ Walter', 'Hauptstraße', '23', '20236', 'Nebenborn', 0.6),
+	(7, 'Paul Herbig GmbH', 'Seitenstraße', '23', '31143', 'Hildesheim', 0.7);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `employee` (
@@ -49,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `vorname` varchar(80) NOT NULL DEFAULT '0',
   `nachname` varchar(80) NOT NULL DEFAULT '0',
   PRIMARY KEY (`eid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 DELETE FROM `employee`;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
@@ -57,7 +67,9 @@ INSERT INTO `employee` (`eid`, `vorname`, `nachname`) VALUES
 	(1, 'Max', 'Mustermann'),
 	(2, 'Simone', 'Schlau'),
 	(3, 'Simone', 'Musterfrau'),
-	(4, 'Tim', 'Taler');
+	(4, 'Tim', 'Taler'),
+	(5, 'Susi', 'Sorglos'),
+	(6, 'Frank', 'Fabian');
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `priority` (
@@ -78,7 +90,7 @@ INSERT INTO `priority` (`id`, `value`, `description`) VALUES
 
 CREATE TABLE IF NOT EXISTS `task` (
   `tid` int(11) NOT NULL AUTO_INCREMENT,
-  `titel` varchar(80) NOT NULL DEFAULT '0',
+  `title` varchar(80) NOT NULL DEFAULT '0',
   `priid` int(11) NOT NULL DEFAULT '0',
   `proid` int(11) NOT NULL DEFAULT '0',
   `date` date NOT NULL,
@@ -91,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `task` (
 
 DELETE FROM `task`;
 /*!40000 ALTER TABLE `task` DISABLE KEYS */;
-INSERT INTO `task` (`tid`, `titel`, `priid`, `proid`, `date`) VALUES
+INSERT INTO `task` (`tid`, `title`, `priid`, `proid`, `date`) VALUES
 	(2, 'DBMS auswählen', 1, 1, '2020-04-12'),
 	(3, 'Webseiten gestalten', 3, 1, '2020-05-13'),
 	(4, 'Webserver installieren', 3, 1, '2020-06-27'),
