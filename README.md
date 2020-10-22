@@ -44,28 +44,16 @@ Sie *reflektieren* die Eignung der eingesetzten Entwicklungswerkzeuge hinsichtli
 
 ![ERDiagramm](Doku/ERDiagramm.png   )
 
+![Relationsschema](Doku/Relationsschemata.png   )
+
 #### Datenbankabfragen
 - DML (CRUD) (LF8)
     - INSERT (LF8)
     - SELECT inkl. JOIN (LF8)
     - UPDATE (LF8)
     - DELETE (LF8)
-
-#### Objektorientierung
-- Klassen erstellen (LF8)
-- Instanzen erzeugen / Klassen verwenden (LF8)
-- Vererbung (LF8)
-- abstrakte Methoden  (LF8)
-- Interfaces (LF8)
-
-#### Dokumentation
-- Java Doc (LF8)
-- OpenAPI Standard (Swagger) (LF8)
-
-#### UML
-- Klassendiagramm (LF8)
-
-![UMLKlassendiagarmm](Doku/Klassendiagramm.png)
+    - Trigger und Transaktionen (LF8)
+    - Views (LF8)
 
 ### LF9: Netzwerke und Dienste bereitstellen
 **Die Schülerinnen und Schüler verfügen über die Kompetenz, Netzwerke und Dienste zu planen, zu konfigurieren und zu erweitern.**
@@ -83,7 +71,29 @@ Sie *installieren* und konfigurieren Netzwerke sowie deren Infrastruktur und imp
 Die Schülerinnen und Schüler *beurteilen* die Netzwerke sowie deren Infrastruktur und die Dienste hinsichtlich der gestellten Anforderungen, Datensicherheit und Datenschutz.
 Sie *reflektieren* ihre Lösung unter Berücksichtigung der Kundenzufriedenheit, Zukunftsfähigkeit und Vorgehensweise.
 
-#### Cloud Computing
+### Didaktische Reduktion
+
+Aus Gründen der Vereinfachung, wird die Datenbank verkleinert und erhält jetzt nur noch drei Entitäten.
+
+![Relationsschema](Doku/Relationsschemata-klein.png   )
+
+#### Objektorientierung
+- Klassen erstellen (LF9)
+- Instanzen erzeugen / Klassen verwenden (LF9)
+- Vererbung (LF9)
+- abstrakte Methoden  (LF9)
+- Interfaces (LF9)
+
+#### Dokumentation
+- Java Doc (LF9)
+- OpenAPI Standard (Swagger) (LF9)
+
+#### UML
+- Klassendiagramm (LF9)
+
+![UMLKlassendiagarmm](Doku/Klassendiagramm.png)
+
+#### Inhalte Cloud Computing
 - OpenAPI (Swagger) Dokumentation
 - CI/CD (LF9)
 - HTTP Methoden und REST-API (LF9)
