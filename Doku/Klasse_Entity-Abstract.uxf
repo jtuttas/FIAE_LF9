@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>171</x>
+      <y>441</y>
+      <w>225</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>Priority
+--
+- value:int
+--
++ Priority(value:int,name:String)
++ getValue():int
++ setValue(value:int):void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>720</x>
+      <y>441</y>
+      <w>225</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>Project
+--
+--
++ Project(name:String)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>459</x>
+      <y>414</y>
+      <w>216</w>
+      <h>243</h>
+    </coordinates>
+    <panel_attributes>Task
+--
+- project:Project
+- priority:Priority
+- date:Date
+--
++ Task(title:String,d:Date)
++ getTitle():String
++ getDate():Date
++ setDate(d:Date):void
++ setProject(p:Project):void
++ getProject():Project
++ getPriority():Priority
++ setPriority(p:Priority):void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>387</x>
+      <y>450</y>
+      <w>90</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>666</x>
+      <y>450</y>
+      <w>72</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>387</x>
+      <y>90</y>
+      <w>342</w>
+      <h>225</h>
+    </coordinates>
+    <panel_attributes>/Entity/
+&lt;&lt;abstract&gt;&gt;
+--
+- name:String
+# id:int
+--
++ Entity(name:String)
++ getId():int
++ setId(id:int):void
++ getName():String
+/+ getCreateStatement():String &lt;&lt;abstract&gt;&gt;/
+/+ getUpdateStatement():String &lt;&lt;abstract&gt;&gt;/
+/+ getDeleteStatement():String &lt;&lt;abstract&gt;&gt;/
+/+ getReadStatement():String &lt;&lt;abstract&gt;&gt;/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>288</x>
+      <y>306</y>
+      <w>234</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>240.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>603</x>
+      <y>306</y>
+      <w>234</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;240.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>306</y>
+      <w>27</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+</diagram>

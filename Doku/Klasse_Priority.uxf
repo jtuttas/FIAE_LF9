@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>320</x>
+      <y>220</y>
+      <w>250</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>Priority
+--
+- value:int
+- name:String
+--
++ Priority(value:int,name:String)
++ getName():String
++ getValue():int
++ setValue(value:int):void</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
