@@ -6,6 +6,34 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - MyHandler",
+            "request": "launch",
+            "mainClass": "schueler.MyHandler",
+            "projectName": "todo"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - SimpleServer",
+            "request": "launch",
+            "mainClass": "schueler.SimpleServer",
+            "projectName": "todo"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - JDBCMain",
+            "request": "launch",
+            "mainClass": "schueler.JDBCMain",
+            "projectName": "todo"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - JDBCMain",
+            "request": "launch",
+            "mainClass": "todo.JDBCMain",
+            "projectName": "todo"
+        },
+        {
+            "type": "java",
             "name": "JavaFX Client",
             "request": "launch",
             "vmArgs": "--module-path ${workspaceFolder}\\lib\\javafx-sdk-11.0.2\\lib --add-modules javafx.controls,javafx.fxml",
