@@ -21,6 +21,10 @@ public abstract class Entity {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public abstract String getCreateStatement();
     public abstract String getUpdateStatement();
     public abstract String getDeleteStatement();

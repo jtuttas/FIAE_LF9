@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>todo</groupId>
   <artifactId>todo</artifactId>
@@ -14,7 +13,7 @@
     <checkstyle.version>8.29</checkstyle.version>
     <checkstyle-rules.version>4.0.1</checkstyle-rules.version>
     <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
-    
+
     <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
     <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
     <!-- JaCoCo thresholds. Increase gradually as you add tests. -->
@@ -24,48 +23,44 @@
     <jacoco.unit-tests.limit.method-complexity>5</jacoco.unit-tests.limit.method-complexity>
   </properties>
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/org.json/json -->
-    <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20200518</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
     <dependency>
       <groupId>org.xerial</groupId>
       <artifactId>sqlite-jdbc</artifactId>
+      <systemPath>${basedir}/lib/sqlite-jdbc-3.32.3.jar</systemPath>
       <version>3.32.3</version>
+      <scope>system</scope>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/junit/junit -->
     <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13</version>
+      <systemPath>${basedir}/lib/junit-4.13.jar</systemPath>
+      <scope>system</scope>
+    </dependency>
+  
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>11</version>
     </dependency>
     <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>11</version>
     </dependency>
-   <dependency>
-  <groupId>org.openjfx</groupId>
-  <artifactId>javafx-controls</artifactId>
-  <version>11</version>
-</dependency>
-<dependency>
-  <groupId>org.openjfx</groupId>
-  <artifactId>javafx-fxml</artifactId>
-  <version>11</version>
-</dependency>
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <systemPath>${basedir}/lib/json-20190722.jar</systemPath>
+      <version>20190722</version>
+      <scope>system</scope>
+    </dependency>
   </dependencies>
   <build>
     <pluginManagement>
-      <plugins>
-
-
-      </plugins>
+      <plugins></plugins>
     </pluginManagement>
     <plugins>
       <plugin>
@@ -93,7 +88,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven-surefire-plugin.version}</version>
       </plugin>
-     
+
       <!-- any other plugins -->
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -130,7 +125,7 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>3.2.0</version>
         <configuration>
-          <aggregate>true</aggregate>          <!-- this enables aggretation -->
+          <aggregate>true</aggregate> <!-- this enables aggretation -->
         </configuration>
       </plugin>
 
