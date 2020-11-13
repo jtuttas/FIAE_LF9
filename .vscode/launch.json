@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - App",
+            "request": "launch",
+            "mainClass": "schueler.App",
+            "projectName": "todo"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - MyHandler",
             "request": "launch",
             "mainClass": "schueler.MyHandler",
