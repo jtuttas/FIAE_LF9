@@ -14,32 +14,21 @@ public class Project extends Entity {
 
     @Override
     public String getCreateStatement() {
-        return "insert into project(name) values (" + getName() + ")";
+        return null;
     }
 
     @Override
     public String getUpdateStatement() {
-        return "update project set name=" + getName() + " where id=" + id;
+        return null;
     }
 
     @Override
     public String getDeleteStatement() {
-        return "delete from project where id=" + id;
+        return null;
     }
 
     @Override
     public String getReadStatement() {
-        return "select * from project";
+        return null;
     }
-
-    public void setEntity(ResultSet rs) {
-        try {
-            this.setId(rs.getInt(1));
-            this.setName(rs.getString(2));
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
 }
