@@ -13,7 +13,7 @@
 --
 --
 + handle(h:HttpExchange):void
-</panel_attributes>
+_+ main(String[] args):void_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

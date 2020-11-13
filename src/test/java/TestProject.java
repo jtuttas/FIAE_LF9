@@ -6,9 +6,7 @@ public class TestProject {
     
     @Test
     public void testSetEntity() {
-        ResultSet rs = new ResultSet() {
-
-        };
+       
     }
 
 }

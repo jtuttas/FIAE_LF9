@@ -83,9 +83,9 @@
     <id>UMLClass</id>
     <coordinates>
       <x>540</x>
-      <y>162</y>
+      <y>90</y>
       <w>342</w>
-      <h>225</h>
+      <h>297</h>
     </coordinates>
     <panel_attributes>/Entity/
 &lt;&lt;abstract&gt;&gt;
@@ -100,7 +100,11 @@
 /+ getCreateStatement():String &lt;&lt;abstract&gt;&gt;/
 /+ getUpdateStatement():String &lt;&lt;abstract&gt;&gt;/
 /+ getDeleteStatement():String &lt;&lt;abstract&gt;&gt;/
-/+ getReadStatement():String &lt;&lt;abstract&gt;&gt;/</panel_attributes>
+/+ getReadStatement():String &lt;&lt;abstract&gt;&gt;/
+/+ setEntity(rs:ResultSet):void &lt;&lt;abstract&gt;&gt;/
+/+ parseJSON(json:String):void &lt;&lt;abstract&gt;&gt;/
+/+ toJSON():String &lt;&lt;abstract&gt;&gt;/
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
