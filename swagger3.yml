@@ -1,0 +1,186 @@
+openapi: '3.0.2'
+info:
+  title: TODO
+  description: API for a ToDo List
+  version: '1.0'
+servers:
+  - url: http://130.61.61.100
+  - url: http://localhost:8000
+paths:
+  /todo:
+    get:
+      tags:
+          - task
+      summary: Returns list of tasks
+      responses:
+        '200':
+          description: A JSON Array of tasks
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 2
+                        title:
+                          type: string
+                          example: Eine Aufgabe
+                        proId:
+                          type: integer
+                          example: 1
+                        priId:
+                          type: integer
+                          example: 3
+                        date:
+                          type: string
+                          example: 2020-01-12
+
+        '500':
+          description: Something went wrong
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error message
+    post:
+      summary: Add a new task
+      tags:
+          - task
+      requestBody:
+        description: Add task
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object              
+              properties:
+                title:
+                  type: string
+                  example: a title for the task
+                date:
+                  type: string
+                  example: 2020-01-12
+                proId:
+                  type: integer
+                  example: 2
+                priId:
+                  type: integer
+                  example: 3
+      responses:
+        '200':
+          description: Insert successfull
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        '500':
+          description: Something went wrong
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error message
+  
+  /todo/{id}:
+    delete:
+      tags:
+          - task
+      summary: Delete a task
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: id of the task
+
+      responses:
+          '200':
+            description: Delete successfull
+            content: 
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                      example: true
+          '500':
+            description: Something went wrong
+            content: 
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+                      example: error message
+    put:
+      tags:
+          - task
+      requestBody:
+        description: Update task
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object              
+              properties:
+                title:
+                  type: string
+                  example: new title of the task
+                proId:
+                  type: integer
+                  example: 3
+                priId:
+                  type: integer
+                  example: 1
+                date:
+                  type: string
+                  example: 2019-12-01
+      summary: Update a task
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: id of the task
+
+      responses:
+          '200':
+            description: Update successfull
+            content: 
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                      example: true
+          '500':
+            description: Something went wrong
+            content: 
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+                      example: error message
+            
+
