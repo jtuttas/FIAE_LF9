@@ -39,7 +39,12 @@
       <systemPath>${basedir}/lib/junit-4.13.jar</systemPath>
       <scope>system</scope>
     </dependency>
-  
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-all</artifactId>
+      <version>1.3</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
@@ -103,7 +108,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>todo.App</mainClass>
+              <mainClass>schueler.App</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
