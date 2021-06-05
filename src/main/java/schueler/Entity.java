@@ -29,4 +29,5 @@ public abstract class Entity {
     public abstract String getUpdateStatement();
     public abstract String getDeleteStatement();
     public abstract String getReadStatement();
+    public abstract String getReadAllStatement();
 }

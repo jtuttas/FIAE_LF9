@@ -41,4 +41,10 @@ public class Priority extends Entity{
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public String getReadAllStatement() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
