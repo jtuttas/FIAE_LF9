@@ -17,7 +17,7 @@ deploy:
     script:
         - mvn package
     tags: 
-        - myrunner 
+        - mmbbs 
     only:
         - master
     artifacts:
@@ -32,5 +32,5 @@ docker build:
     - docker info
     - docker build -t tuttas/fiae-ls8_9_10a .
   tags:
-    - myrunner
+    - mmbbs
 
