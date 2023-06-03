@@ -4,7 +4,7 @@ info:
   description: API for a ToDo List
   version: '1.0'
 servers:
-  - url: http://130.61.61.100
+  - url: https://todorestserver.azurewebsites.net
   - url: http://localhost:8000
 paths:
   /todo:
