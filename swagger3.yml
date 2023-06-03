@@ -4,7 +4,7 @@ info:
   description: API for a ToDo List
   version: '1.0'
 servers:
-  - url: https://todorestserver.azurewebsites.net
+  - url: https://todorestserver.azurewebsites.net/
   - url: http://localhost:8000
 paths:
   /todo:
@@ -15,7 +15,7 @@ paths:
       responses:
         '200':
           description: A JSON Array of tasks
-          content: 
+          content:
             application/json:
               schema:
                 type: array
@@ -41,7 +41,7 @@ paths:
 
         '500':
           description: Something went wrong
-          content: 
+          content:
             application/json:
               schema:
                 type: object
@@ -59,7 +59,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object              
+              type: object
               properties:
                 title:
                   type: string
@@ -76,7 +76,7 @@ paths:
       responses:
         '200':
           description: Insert successfull
-          content: 
+          content:
             application/json:
               schema:
                 type: object
@@ -86,7 +86,7 @@ paths:
                     example: true
         '500':
           description: Something went wrong
-          content: 
+          content:
             application/json:
               schema:
                 type: object
@@ -94,7 +94,7 @@ paths:
                   error:
                     type: string
                     example: error message
-  
+
   /todo/{id}:
     delete:
       tags:
@@ -111,7 +111,7 @@ paths:
       responses:
           '200':
             description: Delete successfull
-            content: 
+            content:
               application/json:
                 schema:
                   type: object
@@ -121,7 +121,7 @@ paths:
                       example: true
           '500':
             description: Something went wrong
-            content: 
+            content:
               application/json:
                 schema:
                   type: object
@@ -138,7 +138,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object              
+              type: object
               properties:
                 title:
                   type: string
@@ -164,7 +164,7 @@ paths:
       responses:
           '200':
             description: Update successfull
-            content: 
+            content:
               application/json:
                 schema:
                   type: object
@@ -174,7 +174,7 @@ paths:
                       example: true
           '500':
             description: Something went wrong
-            content: 
+            content:
               application/json:
                 schema:
                   type: object
@@ -182,5 +182,5 @@ paths:
                     error:
                       type: string
                       example: error message
-            
+
 
